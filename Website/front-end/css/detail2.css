@@ -1,0 +1,111 @@
+.background-img {
+    background: linear-gradient(300deg, #b700ff, #ff7f4c, #edef72);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+  }
+
+#title .container-fluid{
+    background-color: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+}
+
+.main-layout{
+    display:flex;
+    height: 100vh;
+}
+
+/* 设置 side-nav 的容器宽度和高度 */
+#side {
+    height: 100vh; /* 占据全屏高度 */ 
+}
+  
+/* 使每个 nav-item 均分高度 */
+#side .nav-item {
+height: calc(100vh / 3); /* 将高度分为三等份 */
+display: flex;
+justify-content: center; /* 居中显示内容 */
+align-items: center;
+width: 4.8rem;
+background-color: #efce72;
+}
+
+/* 旋转文本，保持逆时针旋转 */
+#side .nav-link {
+transform: rotate(-90deg); /* 逆时针旋转90度 */
+transform-origin: center center; /* 设置旋转基点为左上角 */
+white-space: nowrap; /* 防止文字换行 */
+font-size: 24px; /* 字体大小 */
+width: auto; /* 根据内容调整宽度 */
+height: auto; /* 根据内容调整高度 */
+background-color:  #efce72;
+}
+
+#main{
+    flex:1;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+}
+
+.main-content{
+    display:grid;
+    grid-template-columns: 1.5fr 2fr; 
+    gap:1rem;
+    
+}
+
+.item{
+    background-color: yellow;
+    position: relative;
+    width: 100%; /* 或者固定的百分比或像素宽度 */
+    height: 100%; /* 或者固定的百分比或像素高度 */
+    display: flex; /* 用于对子元素布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    overflow: hidden; /* 避免内容溢出 */
+}
+
+.text-content{
+    display:grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1.5fr 1fr 1fr 1fr 1fr;
+    width:90%;
+    height:50%;
+}
+
+/* 容器样式 */
+.bird-item {
+    position: relative;
+    display: inline-block;
+}
+
+.bird-image {
+width: 300px; /* 图片宽度 */
+height: auto;
+}
+
+/* 按钮样式 */
+.favorite-btn {
+position: absolute;
+top: 10px; /* 调整爱心的位置 */
+right: 10px;
+background: none;
+border: none;
+cursor: pointer;
+padding: 0;
+}
+
+/* 默认爱心样式 */
+.heart-icon {
+fill: none; /* 空心 */
+stroke: gray; /* 默认灰色边框 */
+transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+/* 激活状态爱心样式 */
+.favorite-btn.active .heart-icon {
+fill: red; /* 填充红色 */
+stroke: red; /* 边框红色 */
+}
+  
+  
+  

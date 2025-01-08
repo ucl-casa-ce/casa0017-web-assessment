@@ -1,0 +1,40 @@
+.background-img {
+    background: linear-gradient(300deg, #b700ff, #ff7f4c, #edef72);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+  }
+
+#title .navbar {
+    background-color: #6c757d !important; /* 设置导航栏背景为灰色 */
+}
+
+#title .nav-link {
+    font-weight: bold;
+}
+
+#title .container{
+    background-color: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+}
+
+/*.navbar-expand-lg{
+    padding: 0px;
+}*/
+
+.search{
+    font-weight: bold;
+}
+
+.carousel-inner {
+    display:flex;
+    min-height: 600px; 
+    
+}
+
+.carousel-item{
+    padding:20px
+}
+
+
+
+    

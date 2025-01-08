@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/detail2.css">
+</head>
+
+<body>
+    <section id="title" class="background-img">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary background-img">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><img src="./images/house-door.svg" alt="brand icon" height="50px"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-5">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="./homepage.html">HOME</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="./details.html">NAVIGATION</a>
+              </li>
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  MAP
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Overview</a></li>
+                  <li><a class="dropdown-item" href="#">Explore</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./favorite.html">FAVORITE</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">ABOUT</a>
+              </li>
+            </ul>
+
+            
+          </div>
+        </div>
+      </nav>
+    </section>
+
+<div class="main-layout">
+    <section id="side" class="side-nav">
+    <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.8rem; height: 100vh;">
+        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+          <li class="nav-item border-bottom">
+            <a href="#" class="nav-link active border-bottom">
+                Anseriformes
+            </a>
+          </li>
+          <li class="nav-item border-bottom">
+            <a href="#" class="nav-link active border-bottom">
+                Accipitriformes
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link active border-bottom">
+                Galliformes
+            </a>
+        </li>
+        </ul>
+    </section>
+
+    
+    <section id="main" class="main-content">
+        <div class="item 3d">
+          <div class="bird x">
+            <img src="./images/details/bird1.jpg" alt="bird img" class="bird-image">
+            <button class="favorite-btn">
+              <svg
+                class="heart-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="30"
+                height="30"
+                fill="none"
+                stroke="gray"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                />
+              </svg>
+            </button>
+          </div>   
+        </div>
+        <div class="item text-content">
+            <div class="li1 title">Scientific Name</div>
+            <div class="li2 title">bird 1</div>
+            <div class="li1 class">Vernacular Name</div>
+            <div class="li2 class">name</div>
+            <div class="li1 family">Family</div>
+            <div class="li2 family">name</div>
+            <div class="li1 genus">Genus</div>
+            <div class="li2 genus">name</div>
+            <div class="li1 habitat">Habitat</div>
+            <div class="li2 habitat">name</div>
+        </div>
+        
+    </section>
+    
+</div>
+      <script src="./js/details.js" charset="utf-8"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+
+</html>

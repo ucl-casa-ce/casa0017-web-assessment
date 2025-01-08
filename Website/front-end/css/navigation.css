@@ -1,0 +1,108 @@
+.background-img {
+    background: linear-gradient(300deg, #b700ff, #ff7f4c, #edef72);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+  }
+
+#title .container-fluid{
+    background-color: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+}
+
+.main-layout{
+    display:flex;
+    height: 100vh;
+}
+
+/* 设置 side-nav 的容器宽度和高度 */
+#side {
+    height: 100vh; /* 占据全屏高度 */ 
+}
+  
+/* 使每个 nav-item 均分高度 */
+#side .nav-item {
+height: calc(100vh / 3); /* 将高度分为三等份 */
+display: flex;
+justify-content: center; /* 居中显示内容 */
+align-items: center;
+width: 4.8rem;
+background-color: #efce72;
+}
+
+/* 旋转文本，保持逆时针旋转 */
+#side .nav-link {
+transform: rotate(-90deg); /* 逆时针旋转90度 */
+transform-origin: center center; /* 设置旋转基点为左上角 */
+white-space: nowrap; /* 防止文字换行 */
+font-size: 24px; /* 字体大小 */
+width: auto; /* 根据内容调整宽度 */
+height: auto; /* 根据内容调整高度 */
+background-color:  #efce72;
+}
+
+#main{
+    flex:1;
+}
+
+.main-content{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    gap:1rem;
+}
+
+.item{
+    background-color: yellow;
+    position: relative;
+    width: 100%; /* 或者固定的百分比或像素宽度 */
+    height: 100%; /* 或者固定的百分比或像素高度 */
+    display: flex; /* 用于对子元素布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    overflow: hidden; /* 避免内容溢出 */
+}
+
+.item.picture{
+    grid-area:1 / 1 / 2 / 4;
+    position: relative; /* 定位以便控制内部内容 */
+    width: 100%; /* 或其他需要的固定宽度 */
+    height: 100%; /* 或其他需要的固定高度 */
+    display: flex;
+    justify-content: center; /* 子项水平居中 */
+    align-items: center; /* 子项垂直居中 */
+    overflow: hidden; /* 避免内容超出容器 */
+}
+
+.item.picture img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* 图片宽度与容器一致 */
+    height: 100%; /* 图片高度与容器一致 */
+    object-fit: cover; /* 确保图片按照容器比例裁剪显示 */
+    object-position: center; /* 图片居中显示 */
+}
+
+.card {
+    width: 100%; /* 卡片宽度适配父容器 */
+    height: 100%; /* 卡片高度适配父容器 */
+    justify-content: space-between;
+  }
+  
+  /* 图片适配卡片 */
+  .card-img-top {
+    width: 100%; /* 图片宽度与卡片一致 */
+    height: 75%; /* 按比例显示图片 */
+    object-fit: cover; /* 如果需要填充容器，可以用 cover */
+  }
+  
+  /* 卡片主体部分适配*/
+  .card-body {
+    flex-grow: 1; /* 主体部分占据剩余空间 */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; 
+  } 
+  
+  
+  

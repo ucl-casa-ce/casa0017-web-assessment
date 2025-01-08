@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .top {
+            background-color: rgb(233, 206, 140);
+            padding: 30px;
+            height: 15vh;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: rgb(246, 235, 194);
+        }
+
+        #s1,
+        #s2,
+        #s3 {
+            display: none;
+        }
+
+        #park {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 50px;
+            display: none;
+        }
+
+        #bird {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top">
+        <img style="width: 50px;" src="./images/10.png" alt="">
+    </div>
+    <div style="display: flex;">
+        <div
+            style="background-color: rgb(240, 221, 166);width: 100px;margin-right: 30px;height: 85vh;box-sizing: border-box;width: 8vw;">
+            <div style="background-color: #fff;padding: 30px;text-align: center;" id="search">
+                <img style="width: 30px;" src="./images/3.png" alt="">
+            </div>
+            <div
+                style="display: flex;justify-content: space-around;flex-direction: column;align-items: center;height: 60vh;font-size: 26px;">
+                <div style="transform: rotate(-90deg);cursor: pointer;background-color: rgb(235, 208, 134);width: 100%;line-height: 8vw;text-align: center;width: 200%;"
+                    id="a">
+                    Bird
+                </div>
+                <div style="transform: rotate(-90deg);cursor: pointer;width: 100%;line-height: 8vw;text-align: center;width: 200%;"
+                    id="b">
+                    Park
+                </div>
+            </div>
+            <div style="background-color: #fff;padding: 30px;text-align: center;" id="next">
+                <!-- Scroll <br>
+                <img style="width: 20px;" src="./images/8.png" alt=""> -->
+            </div>
+        </div>
+        <div style="width: 92vw;">
+            <div id="bird" style="display: flex;justify-content: space-around;width: 100%;margin-top: 50px;">
+
+                <div style="width: 320px;">
+                    <div
+                        style="width: 120px;background-color: rgb(232, 210, 150);text-align: center;border-radius: 8px;line-height: 45px;font-size: 22px;margin: 20px auto;">
+                        Bird A
+                    </div>
+                    <div
+                        style="background-color: rgb(253, 249, 234);padding: 50px 60px;width: 200px;border-radius: 15px;position: relative;">
+                        <img style="width: 100%;height: 290px;" src="./images/12.jpg" alt="">
+
+                        <!-- <img id="k1" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/9.png" alt="">
+                        <img id="s1" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/23.png" alt="">
+                        <a target="_blank" href="./images/12.jpg">
+                            <img style="position: absolute;right: 10px;bottom: 10px;width: 20px;" src="./images/4.png"
+                                alt="">
+                        </a> -->
+                    </div>
+                    <div style="display: flex;padding: 15px;">
+                        <div>
+                            <img style="width: 26px;" src="./images/11.png" alt="">
+                        </div>
+                        <div style="margin-left: 10px;">
+                            Duis aute irure dolor in <br>
+                            reprehenderit in voluptate velit <br>
+                            esse
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style="width: 320px;">
+                    <div
+                        style="width: 120px;background-color: rgb(232, 210, 150);text-align: center;border-radius: 8px;line-height: 45px;font-size: 22px;margin: 20px auto;">
+                        Bird B
+                    </div>
+                    <div
+                        style="background-color: rgb(253, 249, 234);padding: 50px 60px;width: 200px;border-radius: 15px;position: relative;">
+                        <img style="width: 100%;height: 290px;" src="./images/13.jpg" alt="">
+
+                        <!-- <img id="k2" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/9.png" alt="">
+                        <img id="s2" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/23.png" alt="">
+                        <a target="_blank" href="./images/13.jpg">
+                            <img style="position: absolute;right: 10px;bottom: 10px;width: 20px;" src="./images/4.png"
+                                alt="">
+                        </a> -->
+                    </div>
+                    <div style="display: flex;padding: 15px;">
+                        <div>
+                            <img style="width: 26px;" src="./images/11.png" alt="">
+                        </div>
+                        <div style="margin-left: 10px;">
+                            Duis aute irure dolor in <br>
+                            reprehenderit in voluptate velit <br>
+                            esse
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style="width: 320px;">
+                    <div
+                        style="width: 120px;background-color: rgb(232, 210, 150);text-align: center;border-radius: 8px;line-height: 45px;font-size: 22px;margin: 20px auto;">
+                        Bird C
+                    </div>
+                    <div
+                        style="background-color: rgb(253, 249, 234);padding: 50px 60px;width: 200px;border-radius: 15px;position: relative;">
+                        <img style="width: 100%;height: 290px;" src="./images/5.jpg" alt="">
+
+                        <!-- <img id="k3" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/9.png" alt="">
+                        <img id="s3" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/23.png" alt="">
+                        <a target="_blank" href="./images/5.jpg">
+                            <img style="position: absolute;right: 10px;bottom: 10px;width: 20px;" src="./images/4.png"
+                                alt="">
+                        </a> -->
+                    </div>
+                    <div style="display: flex;padding: 15px;">
+                        <div>
+                            <img style="width: 26px;" src="./images/11.png" alt="">
+                        </div>
+                        <div style="margin-left: 10px;">
+                            Duis aute irure dolor in <br>
+                            reprehenderit in voluptate velit <br>
+                            esse
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div id="park">
+
+                <div style="width: 320px;">
+                    <div
+                        style="width: 120px;background-color: rgb(232, 210, 150);text-align: center;border-radius: 8px;line-height: 45px;font-size: 22px;margin: 20px auto;">
+                        Park A
+                    </div>
+                    <div
+                        style="background-color: rgb(253, 249, 234);padding: 50px 60px;width: 200px;border-radius: 15px;position: relative;">
+                        <img style="width: 100%;height: 290px;" src="./images/24.jpg" alt="">
+
+                        <!-- <img id="k1" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/9.png" alt="">
+                        <img id="s1" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/23.png" alt="">
+                        <a target="_blank" href="./images/12.jpg">
+                            <img style="position: absolute;right: 10px;bottom: 10px;width: 20px;" src="./images/4.png"
+                                alt="">
+                        </a> -->
+                    </div>
+                    <div style="display: flex;padding: 15px;">
+                        <div>
+                            <img style="width: 26px;" src="./images/11.png" alt="">
+                        </div>
+                        <div style="margin-left: 10px;">
+                            Duis aute irure dolor in <br>
+                            reprehenderit in voluptate velit <br>
+                            esse
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style="width: 320px;">
+                    <div
+                        style="width: 120px;background-color: rgb(232, 210, 150);text-align: center;border-radius: 8px;line-height: 45px;font-size: 22px;margin: 20px auto;">
+                        Park B
+                    </div>
+                    <div
+                        style="background-color: rgb(253, 249, 234);padding: 50px 60px;width: 200px;border-radius: 15px;position: relative;">
+                        <img style="width: 100%;height: 290px;" src="./images/25.jpg" alt="">
+
+                        <!-- <img id="k2" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/9.png" alt="">
+                        <img id="s2" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/23.png" alt="">
+                        <a target="_blank" href="./images/13.jpg">
+                            <img style="position: absolute;right: 10px;bottom: 10px;width: 20px;" src="./images/4.png"
+                                alt="">
+                        </a> -->
+                    </div>
+                    <div style="display: flex;padding: 15px;">
+                        <div>
+                            <img style="width: 26px;" src="./images/11.png" alt="">
+                        </div>
+                        <div style="margin-left: 10px;">
+                            Duis aute irure dolor in <br>
+                            reprehenderit in voluptate velit <br>
+                            esse
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style="width: 320px;">
+                    <div
+                        style="width: 120px;background-color: rgb(232, 210, 150);text-align: center;border-radius: 8px;line-height: 45px;font-size: 22px;margin: 20px auto;">
+                        Park C
+                    </div>
+                    <div
+                        style="background-color: rgb(253, 249, 234);padding: 50px 60px;width: 200px;border-radius: 15px;position: relative;">
+                        <img style="width: 100%;height: 290px;" src="./images/26.jpg" alt="">
+
+                        <!-- <img id="k3" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/9.png" alt="">
+                        <img id="s3" style="position: absolute;left: 10px;bottom: 10px;width: 20px;"
+                            src="./images/23.png" alt="">
+                        <a target="_blank" href="./images/5.jpg">
+                            <img style="position: absolute;right: 10px;bottom: 10px;width: 20px;" src="./images/4.png"
+                                alt="">
+                        </a> -->
+                    </div>
+                    <div style="display: flex;padding: 15px;">
+                        <div>
+                            <img style="width: 26px;" src="./images/11.png" alt="">
+                        </div>
+                        <div style="margin-left: 10px;">
+                            Duis aute irure dolor in <br>
+                            reprehenderit in voluptate velit <br>
+                            esse
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    const search = document.getElementById("search")
+    const a = document.getElementById("a")
+    const b = document.getElementById("b")
+    const c = document.getElementById("c")
+    const next = document.getElementById("next")
+    const k1 = document.getElementById("k1")
+    const s1 = document.getElementById("s1")
+    const k2 = document.getElementById("k2")
+    const s2 = document.getElementById("s2")
+    const k3 = document.getElementById("k3")
+    const s3 = document.getElementById("s3")
+    const bird = document.getElementById("bird")
+    const park = document.getElementById("park")
+
+    let n = 0
+
+    next.onclick = () => {
+
+        b.style.backgroundColor = 'rgb(235, 208, 134)'
+        a.style.backgroundColor = 'rgb(240, 221, 166)'
+
+    }
+
+    search.onclick = () => {
+        const s = prompt("搜索")
+        console.log(s);
+        if (s == 'bird') {
+            a.style.backgroundColor = 'rgb(235, 208, 134)'
+            b.style.backgroundColor = 'rgb(240, 221, 166)'
+            bird.style.display = 'flex'
+            park.style.display = 'none'
+
+        } else if (s == 'park') {
+            b.style.backgroundColor = 'rgb(235, 208, 134)'
+            a.style.backgroundColor = 'rgb(240, 221, 166)'
+            bird.style.display = 'none'
+            park.style.display = 'flex'
+        }
+
+    }
+
+    a.onclick = () => {
+        a.style.backgroundColor = 'rgb(235, 208, 134)'
+        b.style.backgroundColor = 'rgb(240, 221, 166)'
+        park.style.display = 'none'
+        bird.style.display = 'flex'
+    }
+    b.onclick = () => {
+        b.style.backgroundColor = 'rgb(235, 208, 134)'
+        a.style.backgroundColor = 'rgb(240, 221, 166)'
+        bird.style.display = 'none'
+        park.style.display = 'flex'
+    }
+
+    k1.onclick = () => {
+        s1.style.display = 'block'
+        alert("点赞成功!")
+    }
+    k2.onclick = () => {
+        s2.style.display = 'block'
+        alert("点赞成功!")
+    }
+    k3.onclick = () => {
+        s3.style.display = 'block'
+        alert("点赞成功!")
+    }
+</script>
+
+</html>
