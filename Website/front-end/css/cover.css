@@ -1,0 +1,165 @@
+/* Custom default button */
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+    color: #ede1e1;
+    text-shadow: none;
+    /* Prevent inheritance from `body` */
+}
+
+html,
+body {
+    min-height: 100%;
+    /* Dynamic height, at least the viewport height */
+}
+
+
+body {
+    /* Use a linear gradient background */
+    display: flex;
+    flex-direction: column;
+    /* Flex layout, vertically arranged */
+    background: linear-gradient(to bottom, #3080307c, #bdd8bdb0);
+}
+
+/*
+ * Header
+ */
+
+a.bigheader {
+    font-family: 'Playwrite AU SA', sans-serif;
+    font-size: 3rem;
+    color: #f2e3e3;
+    font-weight: bold;
+    margin-left: 1rem;
+    text-decoration: none;
+    /* Adjust the left margin appropriately */
+}
+
+/* Spacing and color of navigations */
+.nav-masthead .nav-link {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0.5rem;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+    color: #fff;
+}
+
+/* Parent container style */
+header .d-flex {
+    border-bottom: 2px solid #fff;
+    /* Add white line */
+    padding-bottom: 0.5rem;
+    /* Adjust the spacing between the line and the content */
+}
+
+/*
+ * body
+ */
+
+main>h1#home {
+    margin: 3rem 0;
+}
+
+main>h1#analyse1 {
+
+    font-size: 1.5rem;
+    text-align: left;
+    /* Left-justified text */
+    margin: 3rem 0;
+
+}
+
+main>h1#analyse2 {
+
+    font-size: 1.5rem;
+    text-align: left;
+    margin: 2rem 0;
+
+}
+
+main>h1#about {
+    margin: 4rem 0;
+}
+
+
+.row {
+    font-size: 1.2rem;
+    display: flex;
+    /* Use the Flexbox layout */
+    justify-content: space-between;
+    /* Divide space equally between columns */
+    margin-top: 5px;
+}
+
+.col {
+    flex: 1;
+    /* Each column takes up equal space */
+    margin: 0 10px;
+    text-align: left;
+}
+
+.col p {
+    margin: 5px 0;
+    /* Add vertical spacing to paragraphs */
+}
+
+main>h2 {
+    margin: 5rem 0 2rem 0;
+}
+
+.image-container1 {
+    display: flex;
+    justify-content: center;
+    /* Center the image horizontally */
+    align-items: center;
+    /* Center the image vertically */
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    /* Set the rounded edge of the border */
+    padding: 10px;
+    margin: 80px auto;
+    max-width: 920px;
+    flex-grow: 1;
+    /* Allows container height to be dynamically scaled based on content */
+}
+
+.rounded-image {
+    border-radius: 10px;
+    margin: 0 10px;
+    max-width: 100%;
+    /* Make sure the image width does not exceed the width of the container */
+    width: 400px;
+    height: auto;
+    /*Keep the aspect ratio of the picture */
+}
+
+.analysecontainer {
+    margin: 100px 0;
+    display: flex;
+    justify-content: space-between;
+    /* Divide the space equally between the child elements */
+}
+
+.chart-container {
+    flex: 2;
+    /* Take up more space */
+    margin-right: 0 10px;
+}
+
+.datepicker {
+    margin: 70px 0;
+    flex: 1;
+
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    /* The child elements are arranged vertically */
+    align-items: flex-start;
+    /* Set the child element to left justification */
+    gap: 10px;
+}

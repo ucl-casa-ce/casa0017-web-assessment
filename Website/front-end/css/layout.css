@@ -1,0 +1,84 @@
+main > p.leadhomepage {
+  margin: 2rem 6rem;
+}
+
+main > p#leadabout {
+  margin: 4rem 4rem;
+}
+
+/* Control the width of the Carousel picture */
+#myCarousel {
+  max-width: 60%; /* Set the maximum width to 60% of the screen width */
+  margin: 120px auto; /* Set the top margin to 30px and keep it centered horizontally */
+}
+
+/* Size of picture */
+.carousel-inner img {
+  width: 800px; 
+  height: 400px; 
+  object-fit: cover; /* Keep the aspect ratio of the image and crop any excess*/
+}
+
+.carousel-control-prev, .carousel-control-next {
+  background-color: rgba(0, 0, 0, 0.5); /* Sets the background color of the control button */
+  width: 50px; /* Set the width of the button */
+  height: 50px; 
+  padding: 10px; 
+  border-radius: 50%; /* Set the button to a circle */
+  top: 50%; /* vertical center */
+  transform: translateY(-50%); 
+}
+
+.carousel-control-prev {
+  left: 10px; /* Adjust the position of the left button */
+}
+
+.carousel-control-next {
+  right: 10px; /* Adjust the position of the right button */
+}
+
+.provide-container {
+  margin: 1rem 1rem;
+  display: flex;
+  align-items: flex-start; /* Align vertically to the top */
+  gap: 20px; /* Add space between the image and text containers */
+}
+
+.image-container2 {
+  display: flex; 
+  justify-content: center; /* Center the image horizontally and vertically */
+  align-items: center; 
+  /*border: 3px solid #ddd; /* 添加边框 */
+  border-radius: 10px; 
+  padding: 10px; 
+  margin: 20px 10px 40px 0; 
+  max-width: 100%; /* Make sure the image container does not exceed the width of the parent container */
+  flex: 1; 
+}
+
+.image-container2 img {
+  width: 70%; /* Pictures make up 70% of the container */
+  height: auto; 
+}
+
+.text-container {
+  display: flex; 
+  flex-direction: column; /* Sets the child elements to be arranged vertically */
+  justify-content: space-between; /* Divide space equally between paragraphs of text */
+  flex: 1.2; 
+  padding: 0 2rem;
+}
+
+.text-container p {
+  margin: 1rem 2rem 1rem 0; 
+  text-align: left; /* Set the text to left justification */
+}
+
+.text-containerh h4, p#lead1{
+  margin: 2rem 0 0 0;
+}
+
+.text-containerh h4,
+.text-container p {
+  text-align: left; /* Set the text to left justification */
+}
