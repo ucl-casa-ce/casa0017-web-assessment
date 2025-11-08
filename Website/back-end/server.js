@@ -13,4 +13,14 @@
 //      npm install and npm start shortcuts and include a package.json file
 //          - See https://docs.npmjs.com/creating-a-package-json-file
 
-console.log("Hello World I'm the backend server")
+// Website/back-end/server.js
+const path = require('path');
+const express = require('express');
+const app = express();
+
+app.use(express.static(path.join(__dirname, '../front-end')));
+app.get('/', (req, res) =>
+  res.sendFile(path.join(__dirname, '../front-end/homepage/index.html'))
+);
+
+app.listen(3000, () => console.log('http://localhost:3000'));

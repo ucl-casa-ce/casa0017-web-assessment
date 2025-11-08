@@ -1,0 +1,92 @@
+ /* This is your main style file */
+ html,
+body {
+  height: 100%;
+  margin: 0;
+  color: #505050;
+  font-family: Georgia;
+  font-size: 26px;
+  line-height: 40px;
+}
+#c {
+  position: fixed;      /* pin it to the viewport */
+  inset: 0;             /* top:0 right:0 bottom:0 left:0 */
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  z-index: 0;
+}
+
+#title {
+  position: absolute;
+  top: 20px;
+  width: 870px;
+  left: 20px;
+  background-color: rgba(85, 85, 85, 0);
+  border-radius: 3px;
+  font: 40px Georgia;
+  padding: 10px;
+}
+
+
+
+#currentInfo {
+  width: 700px;
+  position: absolute;
+  left: 20px;
+
+  /* push it farther down to clear the title */
+  top: clamp(120px, 8vh, 400px);
+
+  background-color: rgb(255, 255, 255,0);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 20px;
+}
+
+
+#list {
+  display: flex;
+  flex-direction: column;
+}
+
+.year {
+  align-self: stretch;
+  font: 16px Georgia;
+  line-height: 26px;
+  height: 40px;
+  float: left;
+  width: 250px;
+  color: rgba(30, 30, 30, 0.4);
+
+  cursor: pointer;
+  -webkit-transition: all 0.1s ease-out;
+}
+
+
+
+.year:hover,
+.year.active {
+  font-size: 23px;
+  color: #080808;
+}
+
+#linkGroup {
+  position: absolute;
+  left: 20px;
+  bottom: 16px;
+}
+
+a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#divider {
+  border: 1px solid #aaa;
+  display: inline;
+  margin: auto 8px;
+}
