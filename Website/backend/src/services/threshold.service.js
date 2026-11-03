@@ -1,5 +1,22 @@
+/**
+ * Threshold Service
+ *
+ * Calculates rainfall thresholds that trigger spills at each outfall
+ * based on historical spill event data.
+ *
+ * @module services/threshold
+ */
+
 import { pool } from '../db/db.js';
 
+/** @typedef {import('../types').OutfallThreshold} OutfallThreshold */
+
+/**
+ * Get rainfall thresholds for outfalls based on historical spill data
+ *
+ * @param {number|null} [maxRainMm] - Filter to outfalls that spill at or below this rainfall
+ * @returns {Promise<OutfallThreshold[]>} Outfalls with threshold statistics
+ */
 export async function getOutfallThresholds(maxRainMm = null) {
   const params = [];
   let havingSql = '';
