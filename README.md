@@ -224,7 +224,6 @@ Every synthetic row has `is_synthetic = TRUE` and is labelled "sample" on the si
 | Name | Role | GitHub |
 |---|---|---|
 | Aubree | | |
-| Kiran | | |
 | Mengjiao | | |
 | Namita | | |
 | Xinrui | | |
