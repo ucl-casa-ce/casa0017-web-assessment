@@ -139,10 +139,9 @@ export async function fetchDischargeStatus(options = {}) {
       .filter((item) => !filterLondon || isTargetRiver(item.receivingWaterCourse))
       .map(normalizeOutfall);
 
-    // TODO: Re-enable caching once we confirm database schema matches API data
-    // if (outfalls.length > 0) {
-    //   await cacheOutfallStatus(outfalls);
-    // }
+    if (outfalls.length > 0) {
+      await cacheOutfallStatus(outfalls);
+    }
 
     return {
       source: 'live',
