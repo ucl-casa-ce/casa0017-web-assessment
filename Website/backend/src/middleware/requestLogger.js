@@ -1,8 +1,9 @@
 import morgan from 'morgan';
 import config from '../config/env.js';
 
-// TODO: Configure morgan logger based on environment
+// Use 'dev' format in development, 'combined' in production
+const format = config.env === 'production' ? 'combined' : 'dev';
 
-const requestLogger = null;
+const requestLogger = morgan(format);
 
 export default requestLogger;
