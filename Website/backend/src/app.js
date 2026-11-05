@@ -14,6 +14,7 @@ import statusRoutes from './routes/status.routes.js';
 import tideRoutes from './routes/tide.routes.js';
 import thresholdsRoutes from './routes/thresholds.routes.js';
 import eventsRoutes from './routes/events.routes.js';
+import analysisRoutes from './routes/analysis.routes.js';
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use('/api/status', statusRoutes);
 app.use('/api/tide', tideRoutes);
 app.use('/api/thresholds', thresholdsRoutes);
 app.use('/api/events', eventsRoutes);
+app.use('/api/analysis', analysisRoutes);
 
 app.use((req, res, next) => {
   res.status(404).json({ success: false, error: 'Endpoint not found' });

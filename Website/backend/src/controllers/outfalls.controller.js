@@ -1,4 +1,4 @@
-import { getAllOutfalls, getOutfallByPermit } from '../services/outfalls.service.js';
+import { getAllOutfalls, getOutfallByPermit, getOutfallsGeoJSON } from '../services/outfalls.service.js';
 import { fetchSpillHistory, fetchLondonSpillSummary } from '../services/thamesWater.service.js';
 
 export async function listOutfalls(req, res, next) {
@@ -42,6 +42,19 @@ export async function getLondonSpillSummary(req, res, next) {
       return res.status(500).json({ success: false, error: data.error });
     }
     res.json({ success: true, data });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getOutfallsAsGeoJSON(req, res, next) {
+  try {
+    const { river, active } = req.query;
+    const geojson = await getOutfallsGeoJSON({
+      river: river || null,
+      activeOnly: active === 'true'
+    });
+    res.json(geojson);
   } catch (error) {
     next(error);
   }

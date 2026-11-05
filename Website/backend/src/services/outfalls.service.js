@@ -78,3 +78,62 @@ export async function getOutfallByPermit(permitNumber) {
   );
   return rows[0] || null;
 }
+
+/**
+ * Get all outfalls as GeoJSON FeatureCollection
+ */
+export async function getOutfallsGeoJSON(options = {}) {
+  const { river = null, activeOnly = false } = options;
+
+  const conditions = ['o.lat IS NOT NULL', 'o.lng IS NOT NULL'];
+  const params = [];
+
+  if (river) {
+    conditions.push('o.receiving_watercourse REGEXP ?');
+    params.push(river);
+  }
+
+  if (activeOnly) {
+    conditions.push('o.is_discharging = 1');
+  }
+
+  const [rows] = await pool.query(`
+    SELECT
+      o.permit_number,
+      o.location_name,
+      o.receiving_watercourse,
+      o.lat,
+      o.lng,
+      o.is_discharging,
+      o.most_recent_start,
+      COUNT(s.id) AS spill_count,
+      ROUND(MIN(s.rain_24h_mm), 2) AS min_rain_24h,
+      ROUND(AVG(s.rain_24h_mm), 2) AS avg_rain_24h
+    FROM outfalls o
+    LEFT JOIN spill_event s ON o.permit_number = s.outfall_id
+    WHERE ${conditions.join(' AND ')}
+    GROUP BY o.permit_number, o.location_name, o.receiving_watercourse,
+             o.lat, o.lng, o.is_discharging, o.most_recent_start
+    ORDER BY o.location_name
+  `, params);
+
+  const features = rows.map(row => ({
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [row.lng, row.lat]
+    },
+    properties: {
+      permitNumber: row.permit_number,
+      locationName: row.location_name,
+      river: row.receiving_watercourse,
+      isDischarging: Boolean(row.is_discharging),
+      mostRecentStart: row.most_recent_start,
+      spillCount: row.spill_count,
+      minRain24h: row.min_rain_24h,
+      avgRain24h: row.avg_rain_24h
+    }
+  }));
+
+  return { type: 'FeatureCollection', features };
+}
