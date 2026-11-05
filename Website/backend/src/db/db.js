@@ -20,7 +20,11 @@ async function testConnection() {
   try {
     connection = await pool.getConnection();
     await connection.ping();
+    console.log('[DB] Connected to database');
     return true;
+  } catch (err) {
+    console.error('[DB] Connection failed:', err.message);
+    return false;
   } finally {
     if (connection) {
       connection.release();

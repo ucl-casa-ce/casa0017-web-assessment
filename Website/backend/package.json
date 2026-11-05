@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "seed": "node scripts/seed-outfalls.js"
+    "seed": "node scripts/seed-outfalls.js",
+    "db:init": "node src/db/init.js"
   },
   "keywords": [
     "express",
@@ -32,7 +33,8 @@
     "mysql2": "^3.24.6",
     "node-cron": "^3.0.3",
     "proj4": "^2.22.0",
-    "socket.io": "^4.8.4"
+    "socket.io": "^4.8.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

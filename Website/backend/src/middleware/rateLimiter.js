@@ -1,7 +1,15 @@
 import rateLimit from 'express-rate-limit';
 
-// TODO: Configure general API rate limiter
-export const generalLimiter = null;
+// General API rate limiter: 100 requests per minute
+export const generalLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 100,
+  message: { success: false, error: 'Too many requests, please try again later' }
+});
 
-// TODO: Configure strict rate limiter for data-intensive endpoints
-export const strictLimiter = null;
+// Strict rate limiter for data-intensive endpoints: 20 requests per minute
+export const strictLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 20,
+  message: { success: false, error: 'Rate limit exceeded for this endpoint' }
+});

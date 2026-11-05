@@ -1,6 +1,23 @@
+/**
+ * Outfalls Service
+ *
+ * Retrieves outfall data from database with live API fallback.
+ *
+ * @module services/outfalls
+ */
+
 import { pool } from '../db/db.js';
 import { fetchDischargeStatus } from './thamesWater.service.js';
 
+/** @typedef {import('../types').Outfall} Outfall */
+/** @typedef {import('../types').OutfallWithGauge} OutfallWithGauge */
+
+/**
+ * Get all outfalls from database with live API fallback
+ *
+ * @param {string|null} [river] - Filter by river/watercourse name
+ * @returns {Promise<OutfallWithGauge[] | Outfall[]>} Outfalls with gauge info or live data
+ */
 export async function getAllOutfalls(river = null) {
   const params = [];
   let whereSql = '';
@@ -39,6 +56,12 @@ export async function getAllOutfalls(river = null) {
   return rows;
 }
 
+/**
+ * Get a single outfall by permit number
+ *
+ * @param {string} permitNumber - Permit number to look up
+ * @returns {Promise<Outfall | null>} Outfall data or null if not found
+ */
 export async function getOutfallByPermit(permitNumber) {
   const [rows] = await pool.query(
     `SELECT

@@ -1,10 +1,23 @@
 import config from '../config/env.js';
 
 const errorHandler = (err, req, res, next) => {
-  // TODO: Log error
-  // TODO: Format error response
-  // TODO: Include stack trace in development mode
-  // TODO: Send JSON error response
+  console.error('[Error]', err.message);
+
+  if (config.env === 'development') {
+    console.error(err.stack);
+  }
+
+  const status = err.status || 500;
+  const response = {
+    success: false,
+    error: err.message || 'Internal Server Error'
+  };
+
+  if (config.env === 'development') {
+    response.stack = err.stack;
+  }
+
+  res.status(status).json(response);
 };
 
 export default errorHandler;

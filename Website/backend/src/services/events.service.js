@@ -1,6 +1,25 @@
+/**
+ * Spill Events Service
+ *
+ * Retrieves spill event records from database with live API fallback.
+ *
+ * @module services/events
+ */
+
 import { pool } from '../db/db.js';
 import { fetchDischargeAlerts } from './thamesWater.service.js';
 
+/** @typedef {import('../types').SpillEventRecord} SpillEventRecord */
+/** @typedef {import('../types').DischargeAlert} DischargeAlert */
+
+/**
+ * Get spill events from database with live API fallback
+ *
+ * @param {Object} [options] - Query options
+ * @param {string|null} [options.permitNumber] - Filter by permit number
+ * @param {number} [options.limit=500] - Max events to return
+ * @returns {Promise<SpillEventRecord[] | DischargeAlert[]>} Spill events or live alerts
+ */
 export async function getSpillEvents({ permitNumber = null, limit = 500 } = {}) {
   const params = [];
   let whereSql = '';
