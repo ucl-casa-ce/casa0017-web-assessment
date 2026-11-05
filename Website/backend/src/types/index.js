@@ -518,6 +518,191 @@
  */
 
 
+// GEOJSON TYPES
+
+
+/**
+ * GeoJSON Point geometry
+ * @typedef {Object} GeoJSONPoint
+ * @property {'Point'} type - Geometry type
+ * @property {[number, number]} coordinates - [longitude, latitude]
+ */
+
+/**
+ * GeoJSON Feature for an outfall
+ * @typedef {Object} OutfallFeature
+ * @property {'Feature'} type - Feature type
+ * @property {GeoJSONPoint} geometry - Point geometry
+ * @property {Object} properties - Feature properties
+ * @property {string} properties.permitNumber - Permit number
+ * @property {string} properties.locationName - Location name
+ * @property {string} properties.river - Receiving watercourse
+ * @property {boolean} properties.isDischarging - Currently discharging
+ * @property {string|null} properties.mostRecentStart - Most recent discharge start
+ * @property {number} properties.spillCount - Total spill events
+ * @property {number|null} properties.minRain24h - Minimum rainfall threshold
+ * @property {number|null} properties.avgRain24h - Average rainfall during spills
+ */
+
+/**
+ * GeoJSON FeatureCollection of outfalls
+ * @typedef {Object} OutfallFeatureCollection
+ * @property {'FeatureCollection'} type - Collection type
+ * @property {OutfallFeature[]} features - Array of outfall features
+ */
+
+
+// ANALYSIS ENDPOINT TYPES
+
+
+/**
+ * Tidal statistics by river
+ * @typedef {Object} TidalRiverStats
+ * @property {string} river - River/watercourse name
+ * @property {number} totalEvents - Total spill events
+ * @property {number} floodCount - Events during flood tide
+ * @property {number} ebbCount - Events during ebb tide
+ * @property {number} floodPct - Percentage during flood tide
+ * @property {number} ebbPct - Percentage during ebb tide
+ */
+
+/**
+ * Extended rainfall threshold with 48h/72h data
+ * @typedef {Object} RainfallThresholdExtended
+ * @property {string} permitNumber - Outfall permit number
+ * @property {string} locationName - Location name
+ * @property {string} river - Receiving watercourse
+ * @property {number} lat - WGS84 latitude
+ * @property {number} lng - WGS84 longitude
+ * @property {number} spillCount - Total spill events
+ * @property {number} minRain24h - Minimum 24h rainfall
+ * @property {number} avgRain24h - Average 24h rainfall
+ * @property {number} maxRain24h - Maximum 24h rainfall
+ * @property {number} minRain48h - Minimum 48h rainfall
+ * @property {number} avgRain48h - Average 48h rainfall
+ * @property {number} minRain72h - Minimum 72h rainfall
+ * @property {number} avgRain72h - Average 72h rainfall
+ */
+
+/**
+ * Antecedent wetness analysis bin
+ * @typedef {Object} AntecedentBin
+ * @property {string} rain24hBin - Rainfall bin label (e.g., "0-2mm", "2-5mm")
+ * @property {number} eventCount - Number of events in bin
+ * @property {number} avgRain24h - Average 24h rainfall
+ * @property {number} avgRain48h - Average 48h rainfall
+ * @property {number} avgRain72h - Average 72h rainfall
+ * @property {number} avgPrior24h - Average rainfall in prior 24h (48h - 24h)
+ * @property {number} avgPrior48to72h - Average rainfall 48-72h before
+ */
+
+/**
+ * Summary statistics for dashboard
+ * @typedef {Object} SummaryStats
+ * @property {Object} totals - Total counts
+ * @property {number} totals.events - Total spill events
+ * @property {number} totals.withRainfall - Events with rainfall data
+ * @property {number} totals.withTidal - Events with tidal data
+ * @property {number} totals.outfalls - Unique outfalls
+ * @property {number} totals.rainfallPct - Percentage with rainfall
+ * @property {number} totals.tidalPct - Percentage with tidal
+ * @property {Object} dateRange - Event date range
+ * @property {string} dateRange.earliest - Earliest event timestamp
+ * @property {string} dateRange.latest - Latest event timestamp
+ * @property {Array<{river: string, eventCount: number}>} topRivers - Top 10 rivers by event count
+ */
+
+/**
+ * Scatter plot data point
+ * @typedef {Object} ScatterDataPoint
+ * @property {string} permitNumber - Outfall permit number
+ * @property {string} locationName - Location name
+ * @property {string} river - Receiving watercourse
+ * @property {number} rain24h - 24h rainfall in mm
+ * @property {number} rain48h - 48h rainfall in mm
+ * @property {TidalPhase} tidalPhase - Tidal phase at start
+ * @property {number} durationHours - Event duration in hours
+ * @property {string} startTime - Event start timestamp
+ */
+
+/**
+ * GET /api/outfalls/geojson response
+ * @typedef {OutfallFeatureCollection} GetOutfallsGeoJSONResponse
+ */
+
+/**
+ * GET /api/analysis/tidal response
+ * @typedef {Object} GetTidalAnalysisResponse
+ * @property {TidalRiverStats[]} data - Tidal statistics by river
+ */
+
+/**
+ * GET /api/analysis/thresholds response
+ * @typedef {Object} GetThresholdsAnalysisResponse
+ * @property {RainfallThresholdExtended[]} data - Rainfall thresholds
+ */
+
+/**
+ * GET /api/analysis/antecedent response
+ * @typedef {Object} GetAntecedentAnalysisResponse
+ * @property {AntecedentBin[]} data - Antecedent wetness analysis
+ */
+
+/**
+ * GET /api/analysis/summary response
+ * @typedef {Object} GetSummaryAnalysisResponse
+ * @property {SummaryStats} data - Summary statistics
+ */
+
+/**
+ * GET /api/analysis/scatter response
+ * @typedef {Object} GetScatterAnalysisResponse
+ * @property {ScatterDataPoint[]} data - Scatter plot data points
+ */
+
+
+// HYDROLOGY TYPES
+
+
+/**
+ * EA flow monitoring station
+ * @typedef {Object} FlowStation
+ * @property {string} stationId - EA station reference
+ * @property {string} label - Station name
+ * @property {string} riverName - River name
+ * @property {number} lat - WGS84 latitude
+ * @property {number} lng - WGS84 longitude
+ * @property {string} status - Station status (Active/Closed)
+ */
+
+/**
+ * Flow reading from EA API
+ * @typedef {Object} FlowReading
+ * @property {string} stationId - Station reference
+ * @property {string} timestamp - ISO timestamp
+ * @property {number} flowCumecs - Flow in cubic meters per second
+ */
+
+/**
+ * Groundwater monitoring station
+ * @typedef {Object} GroundwaterStation
+ * @property {string} stationId - EA station reference
+ * @property {string} label - Station name
+ * @property {string} aquifer - Aquifer name
+ * @property {number} lat - WGS84 latitude
+ * @property {number} lng - WGS84 longitude
+ * @property {string} status - Station status
+ */
+
+/**
+ * Groundwater level reading
+ * @typedef {Object} GroundwaterReading
+ * @property {string} stationId - Station reference
+ * @property {string} timestamp - ISO timestamp
+ * @property {number} levelMaod - Level in meters above ordnance datum
+ */
+
+
 // EXPORTS (for IDE autocompletion when importing)
 
 
