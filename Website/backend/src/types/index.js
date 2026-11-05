@@ -257,6 +257,57 @@
  */
 
 
+// UKHO EASYTIDE TIDE FORECAST TYPES
+
+
+/**
+ * Tide station from EasyTide API
+ * @typedef {Object} TideStation
+ * @property {string} stationId - EasyTide station ID (e.g., "0112")
+ * @property {string} name - Station name (e.g., "NORTH WOOLWICH")
+ * @property {string} country - Country name
+ * @property {number|null} lat - WGS84 latitude
+ * @property {number|null} lng - WGS84 longitude
+ */
+
+/**
+ * Tidal event (high or low tide) from forecast
+ * @typedef {Object} TidalEvent
+ * @property {'HIGH' | 'LOW'} type - Event type
+ * @property {string} dateTime - ISO timestamp of event
+ * @property {number} height - Water height in meters
+ * @property {boolean} isApproximateTime - Whether time is approximate
+ * @property {boolean} isApproximateHeight - Whether height is approximate
+ */
+
+/**
+ * Tidal height at a specific time
+ * @typedef {Object} TidalHeight
+ * @property {string} dateTime - ISO timestamp
+ * @property {number} height - Water height in meters
+ */
+
+/**
+ * Lunar phase info
+ * @typedef {Object} LunarPhase
+ * @property {number} type - Lunar phase type identifier
+ * @property {string} dateTime - ISO timestamp of phase
+ */
+
+/**
+ * Tide forecast response from EasyTide
+ * @typedef {Object} TideForecastResponse
+ * @property {DataSource} source - Data source indicator
+ * @property {string} fetchedAt - ISO timestamp when data was fetched
+ * @property {string} stationId - EasyTide station ID
+ * @property {string} [error] - Error message if source is 'error'
+ * @property {TidalEvent[]} tidalEvents - High/low tide events
+ * @property {TidalHeight[]} heightSeries - Height readings at intervals
+ * @property {LunarPhase[]} lunarPhases - Moon phase data
+ * @property {string|null} [disclaimer] - API disclaimer text
+ */
+
+
 // EXTERNAL API TYPES (Open Meteo, RainViewer, EA Flood Alerts)
 
 
@@ -332,6 +383,8 @@
  * @property {string|null} stopTime - ISO timestamp of stop
  * @property {number} durationHours - Duration in hours (calculated)
  * @property {number|null} rain24hMm - 24-hour rainfall at start
+ * @property {number|null} rain48hMm - 48-hour rainfall at start (antecedent wetness)
+ * @property {number|null} rain72hMm - 72-hour rainfall at start (antecedent wetness)
  * @property {TidalPhase|null} tidalPhaseAtStart - Tidal phase at start
  * @property {boolean|null} isTidallyTrapped - Whether tidally trapped
  */
@@ -411,6 +464,57 @@
 /**
  * GET /api/status response
  * @typedef {OverallStatusResponse} GetStatusResponse
+ */
+
+/**
+ * GET /api/tide/forecast response
+ * @typedef {Object} GetTideForecastResponse
+ * @property {boolean} success
+ * @property {TideForecastResponse} data
+ */
+
+/**
+ * GET /api/tide/forecast/next response
+ * @typedef {Object} GetNextTidesResponse
+ * @property {boolean} success
+ * @property {Object} data
+ * @property {TidalEvent|null} data.nextHigh - Next high tide
+ * @property {TidalEvent|null} data.nextLow - Next low tide
+ */
+
+
+// RAIN GAUGE TYPES
+
+
+/**
+ * EA rain gauge station
+ * @typedef {Object} RainGauge
+ * @property {string} stationId - EA station reference (e.g., "289102TP")
+ * @property {string} label - Station label/name
+ * @property {number} lat - WGS84 latitude
+ * @property {number} lng - WGS84 longitude
+ * @property {number} [easting] - OSGB36 easting
+ * @property {number} [northing] - OSGB36 northing
+ */
+
+/**
+ * Rain gauge with distance to an outfall
+ * @typedef {Object} RainGaugeWithDistance
+ * @extends RainGauge
+ * @property {number} distanceKm - Distance to outfall in kilometers
+ */
+
+
+// HISTORICAL WEATHER TYPES
+
+
+/**
+ * Result of historical rainfall calculation
+ * @typedef {Object} HistoricalRainfallResult
+ * @property {number} totalMm - Total precipitation in millimeters
+ * @property {number} hoursOfData - Number of hours of data used
+ * @property {string} startTime - ISO timestamp of window start
+ * @property {string} endTime - ISO timestamp of window end
  */
 
 
