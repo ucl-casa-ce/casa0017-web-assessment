@@ -1,0 +1,37 @@
+{
+  "report_generated_at_utc": "2026-11-02T12:36:32.708816+00:00",
+  "original_records": 16142,
+  "london_records": 1919,
+  "outside_boundary_records": 14223,
+  "spatial_review_records": 0,
+  "boroughs_with_records": 33,
+  "missing_source_names": 65,
+  "source_accessibility_counts": {
+    "no": 927,
+    "yes": 874,
+    "unknown": 118
+  },
+  "source_radar_key_counts": {
+    "unknown": 998,
+    "no": 668,
+    "yes": 253
+  },
+  "source_free_of_charge_counts": {
+    "yes": 1584,
+    "no": 317,
+    "unknown": 18
+  },
+  "coordinate_review_records": 25,
+  "coordinate_review_groups": 12,
+  "review_decision_counts": {
+    "not_flagged_by_exact_coordinate_check": 1894,
+    "retain_duplicate_candidate": 15,
+    "retain_pending_location_review": 6,
+    "retain_unnamed_duplicate_candidate": 2,
+    "retain_pending_conflict_review": 2
+  },
+  "records_deleted_during_cleaning": 0,
+  "records_merged": 0,
+  "records_relocated": 0,
+  "independent_field_verification": "not_performed"
+}

@@ -1,0 +1,34 @@
+﻿borough_code,borough_name,total_records,source_accessible_yes,source_accessible_no,source_accessible_unknown,source_accessible_yes_pct,source_accessible_unknown_pct
+E09000002,Barking and Dagenham,16,12,3,1,75.0,6.25
+E09000003,Barnet,48,22,25,1,45.83,2.08
+E09000004,Bexley,43,26,16,1,60.47,2.33
+E09000005,Brent,38,18,17,3,47.37,7.89
+E09000006,Bromley,97,36,58,3,37.11,3.09
+E09000007,Camden,83,42,32,9,50.6,10.84
+E09000001,City of London,86,39,44,3,45.35,3.49
+E09000008,Croydon,66,28,36,2,42.42,3.03
+E09000009,Ealing,37,17,17,3,45.95,8.11
+E09000010,Enfield,45,21,21,3,46.67,6.67
+E09000011,Greenwich,41,17,23,1,41.46,2.44
+E09000012,Hackney,19,6,11,2,31.58,10.53
+E09000013,Hammersmith and Fulham,30,14,11,5,46.67,16.67
+E09000014,Haringey,32,11,20,1,34.38,3.12
+E09000015,Harrow,20,11,9,0,55.0,0.0
+E09000016,Havering,34,18,10,6,52.94,17.65
+E09000017,Hillingdon,40,15,23,2,37.5,5.0
+E09000018,Hounslow,120,15,104,1,12.5,0.83
+E09000019,Islington,26,14,12,0,53.85,0.0
+E09000020,Kensington and Chelsea,32,13,16,3,40.62,9.38
+E09000021,Kingston upon Thames,43,13,16,14,30.23,32.56
+E09000022,Lambeth,98,46,47,5,46.94,5.1
+E09000023,Lewisham,68,25,37,6,36.76,8.82
+E09000024,Merton,46,20,18,8,43.48,17.39
+E09000025,Newham,53,24,24,5,45.28,9.43
+E09000026,Redbridge,33,13,19,1,39.39,3.03
+E09000027,Richmond upon Thames,140,72,66,2,51.43,1.43
+E09000028,Southwark,67,48,16,3,71.64,4.48
+E09000029,Sutton,34,18,15,1,52.94,2.94
+E09000030,Tower Hamlets,136,73,59,4,53.68,2.94
+E09000031,Waltham Forest,60,37,19,4,61.67,6.67
+E09000032,Wandsworth,53,13,37,3,24.53,5.66
+E09000033,Westminster,135,77,46,12,57.04,8.89

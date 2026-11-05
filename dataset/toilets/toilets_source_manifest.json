@@ -1,0 +1,20 @@
+{
+  "source_name": "Toilet Map",
+  "source_page": "https://www.toiletmap.org.uk/dataset",
+  "source_export_date": "2026-11-02",
+  "boundary_provenance": "boroughs.geojson from the team's first Access London data package; derived from London Datastore borough boundaries.",
+  "boundary_source_page": "https://data.london.gov.uk/dataset/london-boroughs-e55pw",
+  "coordinate_system": "WGS84 longitude/latitude, as documented by the team",
+  "inputs": [
+    {
+      "file": "raw/toilets_2026-11-02.csv",
+      "bytes": 7926309,
+      "sha256": "8d95ff615acab7261cd36efe9595b852952736458de761caa899aa59a86bc417"
+    },
+    {
+      "file": "raw/boroughs.geojson",
+      "bytes": 1965891,
+      "sha256": "449a955a3919520af645c165be1f1d2cdacb0f201f62e831911c804a39a601b8"
+    }
+  ]
+}

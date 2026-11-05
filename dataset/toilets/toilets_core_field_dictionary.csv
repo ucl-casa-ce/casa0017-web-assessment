@@ -1,0 +1,31 @@
+﻿field,logical_type,description,values_or_format,limitations
+toilet_id,string,Unique prefixed source record ID,toiletmap:<source_id>,"Identifies a source record, not a confirmed unique physical facility."
+display_name,string,Name shown on the map,Source name or Unnamed toilet,A fallback label is not an independently established venue name.
+name_missing,boolean,Whether the source name is missing,true / false,Do not invent a venue name.
+longitude,number,WGS84 longitude,-180 to 180,Stored in CSV; used as the first GeoJSON coordinate.
+latitude,number,WGS84 latitude,-90 to 90,Stored in CSV; used as the second GeoJSON coordinate.
+borough_code,string,Borough GSS code assigned by spatial matching,E09000001 to E09000033,Assignment uses the supplied boundary snapshot.
+borough_name,string,Name of the spatially assigned borough,Borough name,Use borough_code for joins.
+wheelchair_access_status,enum,Standardised source accessible flag,yes / no / unknown,Source declaration; does not establish a separately assessed entrance.
+radar_key_status,enum,Standardised source RADAR key flag,yes / no / unknown,Do not infer wheelchair accessibility from this field.
+free_of_charge_status,enum,Standardised source no_payment flag,yes / no / unknown,Free use does not imply unrestricted access; check conditions and notes.
+baby_change_status,enum,Standardised source baby-change flag,yes / no / unknown,Does not identify a Changing Places facility.
+notes_clean,string,Source notes with surrounding whitespace removed,Text or missing,"May contain access restrictions, old information or conflicting claims."
+payment_details_clean,string,Source payment details,Text or missing,Retain alongside the free-of-charge flag.
+opening_times_raw,string,Opening times preserved from the source,Source text or missing,Not converted into a live opening-status calculation.
+current_open_status,enum,Current opening status established by this project,unknown,Do not display Open now based on this dataset.
+source_name,string,Name of the data provider,Toilet Map,Display source attribution.
+source_dataset_url,string,Dataset download and information page,HTTPS URL,"This is a dataset URL, not an individual facility page."
+source_export_date,date,Date identifying the supplied export,YYYY-MM-DD,Not a facility observation or inspection date.
+source_updated_at_utc,datetime,Source record update timestamp,UTC ISO 8601 timestamp,An update may concern any field; it is not a facility inspection date.
+source_verified_at_utc,datetime,Verification timestamp supplied by the source,UTC ISO 8601 timestamp or missing,Preserve source provenance; do not describe as project verification.
+project_review_status,enum,Independent verification status,not_independently_verified,Data processing checks do not establish physical accessibility.
+same_coordinates_flag,boolean,Whether another record has identical coordinates,true / false,Shared coordinates do not prove duplication.
+coordinate_review_flag,boolean,Whether the record entered this review queue,true / false,False does not mean verified or free of other data issues.
+review_group_id,string,Identifier for a shared-coordinate review group,coordinate_group_NNN or missing,Group numbering is specific to this data batch.
+review_decision,enum,Recorded disposition of the review candidate,See the review decisions file,All current decisions retain the records.
+review_reason,string,Reason for the review decision,Text or missing,Describes evidence from the supplied records.
+review_basis,string,Method used for the recorded review,comparison_of_supplied_source_records or missing,No external identity or field check was performed.
+review_date,date,Date of the data-record review,YYYY-MM-DD or missing,Not a site observation date.
+external_identity_check,enum,Status of external facility identity checking,not_performed,Duplicate candidates have not been externally confirmed.
+data_quality_note,string,Short user-facing explanation of the flagged issue,Text or missing,An empty note does not establish accuracy.
