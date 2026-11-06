@@ -1,0 +1,9 @@
+{
+  "attribution": [
+    "Powered by TfL Open Data",
+    "Contains OS data © Crown copyright and database rights 2016",
+    "Geomni UK Map data © and database rights 2019"
+  ],
+  "terms_url": "https://tfl.gov.uk/corporate/terms-and-conditions/transport-data-service",
+  "api_registration_guidance_url": "https://api-portal.tfl.gov.uk/"
+}
