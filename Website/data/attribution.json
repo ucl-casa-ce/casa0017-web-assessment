@@ -1,0 +1,37 @@
+{
+  "sources": [
+    {
+      "id": "osm_core_places",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "ODbL 1.0",
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "source_url": "https://download.geofabrik.de/europe/united-kingdom/england/greater-london.html",
+      "snapshot_at": "2026-10-18T20:25:06Z"
+    },
+    {
+      "id": "london_borough_boundaries",
+      "attribution": "Contains OS data. Contains public sector information licensed under the Open Government Licence v3.0.",
+      "license": "Open Government Licence v3.0; subject to source-specific notices and third-party exceptions",
+      "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "source_url": "https://data.london.gov.uk/dataset/london-boroughs-e55pw",
+      "source_internal_last_change": "2019-07-04T06:47:40.890Z"
+    },
+    {
+      "id": "ons_ts038",
+      "attribution": "Source: Office for National Statistics. Contains public sector information licensed under the Open Government Licence v3.0.",
+      "license": "Open Government Licence v3.0; subject to source-specific notices and third-party exceptions",
+      "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "source_url": "https://www.ons.gov.uk/datasets/TS038/editions/2021/versions/3",
+      "reference_year": 2021
+    },
+    {
+      "id": "imd_2025",
+      "attribution": "Source: Ministry of Housing, Communities and Local Government. Contains public sector information licensed under the Open Government Licence v3.0.",
+      "license": "Open Government Licence v3.0; subject to source-specific notices and third-party exceptions",
+      "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "source_url": "https://www.gov.uk/government/statistics/english-indices-of-deprivation-2025",
+      "reference_year": 2025,
+      "file": "File 10 v2 lower-tier local authority summaries"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "access-london-website-data-1",
+  "generated_at": "2026-11-03T12:50:57.250461+00:00",
+  "osm_snapshot_at": "2026-10-18T20:25:06Z",
+  "record_count": 74500,
+  "borough_count": 33,
+  "boroughs_url": "boroughs.json",
+  "boundaries_url": "borough_boundaries.geojson",
+  "config_url": "ui_config.json",
+  "place_format": "GeoJSON FeatureCollection",
+  "default_borough": "E09000012",
+  "community_data_status": "not_collected",
+  "strict_needs": [
+    "ent",
+    "toilet",
+    "lift",
+    "cp"
+  ],
+  "category_codes": [
+    "food",
+    "park",
+    "museum",
+    "shop",
+    "toilet"
+  ],
+  "has_verified_routes": false,
+  "additional_datasets": [
+    {
+      "id": "tfl_station_access",
+      "records": 468,
+      "matched_coordinates": 466,
+      "london_coordinates": 432,
+      "static_source_http_modified_at": "2025-05-23T11:05:49Z",
+      "url": "tfl/station_access.json"
+    },
+    {
+      "id": "tfl_lift_disruptions",
+      "url": "/api/tfl/lifts",
+      "refresh": "on_request_after_two_minutes",
+      "expires_after_minutes": 15
+    },
+    {
+      "id": "osm_facility_evidence",
+      "objects": 4514,
+      "snapshot_at": "2026-11-03T21:24:23Z",
+      "url": "venue_evidence/source_features.geojson"
+    },
+    {
+      "id": "changing_places_osm_candidates",
+      "objects": 1,
+      "official_registry_connected": false,
+      "url": "venue_evidence/changing_places_candidates.geojson"
+    },
+    {
+      "id": "reviewed_observations",
+      "url": "/api/observations",
+      "visibility": "approved_only",
+      "preloaded_survey_records": 0
+    }
+  ]
+}

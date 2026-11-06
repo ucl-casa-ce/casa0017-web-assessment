@@ -1,0 +1,107 @@
+{
+  "version": "2026-11-03",
+  "categories": [
+    {
+      "id": "food",
+      "label": "Food and drink",
+      "subcategories": [
+        "cafe",
+        "restaurant",
+        "pub",
+        "bar",
+        "fast_food",
+        "food_court",
+        "ice_cream"
+      ]
+    },
+    {
+      "id": "park",
+      "label": "Parks",
+      "subcategories": [
+        "park"
+      ]
+    },
+    {
+      "id": "museum",
+      "label": "Museums, libraries and galleries",
+      "subcategories": [
+        "museum",
+        "library",
+        "gallery"
+      ]
+    },
+    {
+      "id": "shop",
+      "label": "Shops",
+      "subcategories": [
+        "shop"
+      ]
+    },
+    {
+      "id": "toilet",
+      "label": "Toilets",
+      "subcategories": [
+        "toilets",
+        "changing_places"
+      ]
+    }
+  ],
+  "needs": [
+    {
+      "id": "ent",
+      "label": "Step-free way in",
+      "known_source_records": 0,
+      "evidence_rule": "A verified route from the street to the entrance; overall wheelchair tags alone are not converted."
+    },
+    {
+      "id": "toilet",
+      "label": "Accessible toilet",
+      "known_source_records": 1327,
+      "evidence_rule": "Explicit toilets:wheelchair, or wheelchair on an amenity=toilets object; source claim, not independent verification."
+    },
+    {
+      "id": "lift",
+      "prototype_label": "Lift to every floor",
+      "recommended_label": "Step-free access to every floor",
+      "known_source_records": 0,
+      "evidence_rule": "Detailed public-floor access assessment required; lift existence alone is insufficient."
+    },
+    {
+      "id": "cp",
+      "label": "Changing Places toilet",
+      "known_source_records": 0,
+      "evidence_rule": "Verified facility listing or detailed facility audit required; adult changing table alone is insufficient."
+    }
+  ],
+  "statuses": [
+    "yes",
+    "partly",
+    "no",
+    "unknown"
+  ],
+  "osm_ui_mapping": {
+    "yes": "yes",
+    "limited": "partly",
+    "no": "no",
+    "designated": "unknown",
+    "missing_or_other": "unknown"
+  },
+  "mapper_question_ids_in_current_website": [
+    "ent",
+    "toilet",
+    "lift"
+  ],
+  "missing_mapper_question": "cp",
+  "floor_answer_one_policy": "Preserve the raw answer. Ask whether the building has only one public floor or only one of several floors is accessible; do not auto-map to yes or partly.",
+  "coverage_metric": "Recognised overall OSM wheelchair tags divided by selected OSM objects, not community answers or detailed-need coverage.",
+  "coverage_bands": {
+    "low_below_pct": 15,
+    "medium_below_pct": 35,
+    "purpose": "Retained prototype display heuristic; not a statistical confidence interval."
+  },
+  "score_metric": "100 * (yes + 0.5 * limited) / (yes + limited + no); designated excluded. Overall OSM wheelchair-tag proxy, not a step-free score.",
+  "attribution": "© OpenStreetMap contributors; ODbL 1.0",
+  "show_community_confirmations": false,
+  "show_walking_times": false,
+  "unknown_is_inaccessible": false
+}
