@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Docker rebuild backend only",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "docker compose up --build --no-deps backend",
+      "cwd": "${workspaceFolder}/Website"
+    },
+    {
+      "name": "Docker down & up (all)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "docker compose down && docker compose up --build",
+      "cwd": "${workspaceFolder}/Website"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+services:
+  mysql_db:
+    image: mysql:8.4
+    container_name: rain_to_spill_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: casa0017password
+      MYSQL_DATABASE: rain_to_spill
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/src/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pcasa0017password"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    # build context is Website/ so the image can include shared/ (the river model, shared with the frontend)
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: rain_to_spill_backend
+    restart: unless-stopped
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    init: true
+    stop_grace_period: 1s
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_HOST: mysql_db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: casa0017password
+      DB_NAME: rain_to_spill
+      CRON_ENABLED: "true"
+      CRON_SCHEDULE: "*/15 * * * *"
+      CORS_ORIGIN: "http://localhost:5173"
+      # river map: WhatsApp alerts stay in DRY_RUN (logged) until WHATSAPP_TOKEN etc. are set — see backend/.env.example
+      PUBLIC_MAP_URL: "http://localhost:5173"
+    volumes:
+      - ./backend/src:/app/backend/src
+      - ./backend/scripts:/app/backend/scripts
+      - ./shared:/app/shared
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: rain_to_spill_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: "http://localhost:3000"
+      VITE_USE_POLLING: "true" # see vite.config.js: pick up file edits made on the host
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+      - ./shared:/app/shared
+
+volumes:
+  mysql_data:

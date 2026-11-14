@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+Website/backend/POOPy-main/*
+Website/backend/data/*
+Website/backend/docs/*

@@ -1,0 +1,1335 @@
+:root {
+  --navy: #0f1f33;
+  --page-bg: #eef2f6;
+  --card-bg: #ffffff;
+  --border: #d9e0e7;
+  --text: #1c2b3a;
+  --muted: #5b6b7b;
+  --teal: #13808a;
+  --cyan: #5cc8dc;
+  --orange: #e9a23b;
+  --grey-dot: #c5ccd3;
+  --light-on-dark: #c9d3dd;
+  --hand: 'Caveat', cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--page-bg);
+}
+
+h1,
+h2,
+p,
+figure {
+  margin: 0;
+}
+
+a {
+  color: var(--teal);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.hand-note {
+  font-family: var(--hand);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.opening a:focus-visible,
+.chapter-dark a:focus-visible {
+  outline-color: var(--cyan);
+}
+
+.opening {
+  background: var(--navy);
+  color: white;
+  padding: 56px 0 56px;
+}
+
+.kicker {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cyan);
+  margin-bottom: 16px;
+}
+
+.opening h1 {
+  max-width: 880px;
+  font-size: 56px;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  color: white;
+  text-wrap: balance;
+}
+
+.scribble {
+  position: relative;
+  white-space: nowrap;
+}
+
+.scribble svg {
+  position: absolute;
+  left: 0;
+  bottom: -12px;
+  width: 100%;
+  height: 14px;
+  overflow: visible;
+}
+
+.scribble path {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.lede {
+  max-width: 520px;
+  margin-top: 32px;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--light-on-dark);
+}
+
+.opening-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  gap: 56px;
+  align-items: center;
+}
+
+.hero-map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.map-thames,
+.map-lea {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-linecap: round;
+}
+
+.map-thames {
+  stroke-width: 18;
+}
+
+.map-lea {
+  stroke-width: 7;
+}
+
+.map-flow {
+  fill: none;
+  stroke: white;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 2 16;
+  opacity: 0;
+}
+
+.map-water {
+  fill: var(--cyan);
+  font-size: 14px;
+  font-style: italic;
+}
+
+.map-rain .map-cloud {
+  fill: none;
+  stroke: var(--light-on-dark);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.map-rain line {
+  stroke: var(--cyan);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.map-push,
+.map-push-head {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.map-push {
+  stroke-dasharray: 6 6;
+}
+
+.map-push-label {
+  fill: var(--orange);
+  font-family: var(--hand);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.map-outfall {
+  fill: var(--orange);
+}
+
+.map-rings circle {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 2;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.map-gauge {
+  fill: var(--navy);
+  stroke: white;
+  stroke-width: 2.5;
+}
+
+.map-label {
+  fill: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.map-small {
+  fill: #9fb0c1;
+  font-size: 12px;
+}
+
+.hero-map figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--light-on-dark);
+}
+
+.key {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.key-outfall,
+.key-gauge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.key-outfall {
+  background: var(--orange);
+}
+
+.key-gauge {
+  border: 2.5px solid white;
+}
+
+.key-note {
+  margin-left: auto;
+  font-family: var(--hand);
+  font-size: 18px;
+  color: #9fb0c1;
+}
+
+.right-now {
+  display: grid;
+  grid-template-columns: 110px repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 44px;
+  padding-top: 20px;
+  border-top: 1px solid #2c3d52;
+}
+
+.reading {
+  padding-left: 20px;
+  border-left: 1px solid #2c3d52;
+}
+
+.right-now-title {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9fb0c1;
+  padding-top: 8px;
+}
+
+.reading-number {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--cyan);
+}
+
+.reading-number.is-empty {
+  color: #4b5d72;
+}
+
+.reading-of {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--light-on-dark);
+}
+
+.reading-label {
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--light-on-dark);
+}
+
+.live-message {
+  grid-column: 1 / -1;
+  font-size: 15px;
+  color: #f3c27a;
+}
+
+.live-message:empty {
+  display: none;
+}
+
+.follow-link {
+  display: inline-block;
+  margin-top: 40px;
+  padding-bottom: 2px;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid var(--cyan);
+}
+
+.follow-link:hover {
+  color: var(--cyan);
+}
+
+.chapter-section {
+  padding: 88px 0;
+}
+
+.chapter {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.chapter-label {
+  align-self: start;
+}
+
+.chapter-word {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.chapter-where {
+  font-family: var(--hand);
+  font-size: 20px;
+  color: var(--muted);
+}
+
+.chapter-text h2 {
+  font-size: 36px;
+  line-height: 1.15;
+  letter-spacing: -0.3px;
+  color: var(--navy);
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+
+.chapter-text p {
+  max-width: 30em;
+  margin-bottom: 16px;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.chapter-link {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chapter-link:hover {
+  text-decoration: underline;
+}
+
+.chapter-dark {
+  background: var(--navy);
+  color: white;
+}
+
+.chapter-dark .chapter-word,
+.chapter-dark .chapter-text h2 {
+  color: white;
+}
+
+.chapter-dark .chapter-where,
+.chapter-dark .chapter-text p {
+  color: var(--light-on-dark);
+}
+
+.chapter-dark .chapter-link {
+  color: var(--cyan);
+}
+
+.chapter-dark .sketch .ink {
+  stroke: var(--light-on-dark);
+}
+
+.sketch {
+  display: block;
+  width: 100%;
+  max-width: 130px;
+  height: auto;
+}
+
+.sketch .ink {
+  fill: none;
+  stroke: var(--navy);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sketch .rain {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.sketch .water-fill {
+  fill: var(--cyan);
+}
+
+.sketch .sewage {
+  fill: var(--orange);
+}
+
+.sketch .sewage-patch {
+  fill: var(--orange);
+  opacity: 0.35;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.figure figcaption {
+  margin-top: 18px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.storm {
+  display: block;
+  width: 110px;
+  height: auto;
+  margin: -8px auto 4px;
+}
+
+.storm-cloud {
+  fill: none;
+  stroke: var(--navy);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.storm line {
+  stroke: var(--cyan);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.sewer-ends {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.pipe {
+  position: relative;
+  height: 64px;
+  border: 3px solid #9aa6b2;
+  border-radius: 32px;
+  background: #f6f8fa;
+  overflow: hidden;
+}
+
+.pipe-water {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  background: var(--cyan);
+}
+
+.overflow-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30%;
+  border-top: 2px dashed var(--navy);
+  z-index: 1;
+}
+
+.below-pipe {
+  position: relative;
+  height: 52px;
+}
+
+.below-pipe > .hand-note:first-child {
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  color: var(--muted);
+}
+
+.outfall-pipe {
+  position: absolute;
+  left: 60%;
+  top: 0;
+  width: 12px;
+  height: 22px;
+  border-radius: 0 0 6px 6px;
+  background: var(--navy);
+}
+
+.drips {
+  position: absolute;
+  left: 60%;
+  top: 24px;
+  width: 12px;
+}
+
+.drip {
+  position: absolute;
+  left: 2px;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: var(--orange);
+}
+
+.drip:nth-child(2) {
+  top: 10px;
+}
+
+.drip:nth-child(3) {
+  top: 20px;
+}
+
+.spill-note {
+  position: absolute;
+  left: calc(60% + 24px);
+  top: 6px;
+  color: #b06a00;
+  font-weight: 700;
+  transform: rotate(-4deg);
+}
+
+.mini-river {
+  position: relative;
+  height: 34px;
+  border-radius: 10px;
+  background-color: #efe3cf;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='12'%3E%3Cpath d='M0 6 q10 -6 20 0 t20 0' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: 0 11px;
+}
+
+.mini-river .hand-note {
+  position: absolute;
+  right: 12px;
+  top: 7px;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.gauge-figure figcaption {
+  color: var(--light-on-dark);
+}
+
+.stat {
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+}
+
+.gauge-wrap {
+  position: relative;
+  flex-shrink: 0;
+  padding-top: 40px;
+}
+
+.gauge {
+  position: relative;
+  width: 44px;
+  height: 180px;
+  border: 3px solid var(--light-on-dark);
+  border-radius: 22px;
+}
+
+.gauge-fill {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  height: 0;
+  max-height: calc(100% - 8px);
+  border-radius: 16px;
+  background: var(--cyan);
+}
+
+.gauge-drop {
+  position: absolute;
+  top: 6px;
+  left: 18px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: var(--cyan);
+  opacity: 0;
+}
+
+.stat-label {
+  font-size: 18px;
+  color: var(--light-on-dark);
+}
+
+.stat-number {
+  font-size: 88px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: var(--cyan);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-number.is-empty {
+  color: #4b5d72;
+}
+
+.tide-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tide-button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.tide-button[aria-pressed='true'] {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: white;
+}
+
+.now-tag {
+  display: none;
+  margin-left: 6px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: var(--navy);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tide-button.is-now .now-tag {
+  display: inline-block;
+}
+
+.river {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.place {
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.water {
+  position: relative;
+  flex: 1;
+  height: 96px;
+  border-radius: 10px;
+  background-color: #d7eef3;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='12'%3E%3Cpath d='M0 6 q10 -6 20 0 t20 0' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='12'%3E%3Cpath d='M0 6 q14 -6 28 0 t28 0' fill='none' stroke='%23ffffff' stroke-opacity='.6' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position:
+    0 22px,
+    0 58px;
+  overflow: hidden;
+  transition: background-color 0.4s;
+}
+
+.river.rising .water {
+  background-color: #f4e7d4;
+}
+
+.water-name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  text-align: center;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+.outfall-marker {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 10px;
+  height: 16px;
+  margin-left: -5px;
+  border-radius: 0 0 5px 5px;
+  background: var(--navy);
+}
+
+.particle {
+  position: absolute;
+  left: 75%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.river.rising .particle {
+  left: 25%;
+}
+
+.how {
+  padding: 56px 0;
+  background: white;
+  border-top: 1px solid var(--border);
+}
+
+.how h2 {
+  font-size: 30px;
+  color: var(--navy);
+}
+
+.how-intro {
+  margin: 8px 0 28px;
+  font-size: 17px;
+  color: var(--muted);
+}
+
+.sources {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 0 0 28px;
+  padding-top: 16px;
+  border-top: 2px solid var(--navy);
+}
+
+.sources dt {
+  margin-bottom: 4px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.sources dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+.footer {
+  padding: 28px 0;
+  background: var(--navy);
+  color: var(--light-on-dark);
+  font-size: 15px;
+}
+
+.footer p + p {
+  margin-top: 4px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .kicker,
+  .opening h1,
+  .lede,
+  .right-now,
+  .follow-link {
+    animation: rise 0.8s ease-out both;
+  }
+
+  .opening h1 {
+    animation-delay: 0.1s;
+  }
+
+  .lede {
+    animation-delay: 0.9s;
+  }
+
+  .right-now {
+    animation-delay: 1.3s;
+  }
+
+  .follow-link {
+    animation-delay: 1.5s;
+  }
+
+  .scribble path {
+    stroke-dasharray: 1;
+    animation: draw 0.9s ease-in-out 0.6s both;
+  }
+
+  .map-thames,
+  .map-lea {
+    stroke-dasharray: 1;
+    animation: draw 1.6s ease-out both;
+  }
+
+  .map-lea {
+    animation-delay: 0.3s;
+  }
+
+  .map-flow {
+    animation:
+      fade-in 0.6s ease-out 1.8s forwards,
+      flow 1.6s linear infinite;
+  }
+
+  .map-push {
+    animation: march 0.9s linear infinite;
+  }
+
+  .map-rings circle {
+    animation: ping 2.4s ease-out infinite;
+  }
+
+  .map-rings circle:nth-child(2) {
+    animation-delay: 0.8s;
+  }
+
+  .map-rings circle:nth-child(3) {
+    animation-delay: 1.6s;
+  }
+
+  .map-rain line,
+  .storm line,
+  .sketch-rain .rain {
+    animation: fall 1s linear infinite;
+  }
+
+  .map-rain line:nth-of-type(2),
+  .storm line:nth-of-type(2),
+  .sketch-rain .rain:nth-of-type(2) {
+    animation-delay: -0.5s;
+  }
+
+  .map-rain line:nth-of-type(3),
+  .storm line:nth-of-type(3),
+  .sketch-rain .rain:nth-of-type(3) {
+    animation-delay: -0.25s;
+  }
+
+  .map-rain line:nth-of-type(4),
+  .storm line:nth-of-type(4),
+  .sketch-rain .rain:nth-of-type(4) {
+    animation-delay: -0.75s;
+  }
+
+  .sketch-spill .sewage {
+    animation: drip 1.2s ease-in infinite;
+  }
+
+  .sketch-spill .sewage:nth-of-type(2) {
+    animation-delay: -0.6s;
+  }
+
+  .sketch-spill .waves {
+    animation: sway 3s ease-in-out infinite alternate;
+  }
+
+  .sketch-tide .tide-line {
+    animation: bob 3s ease-in-out infinite alternate;
+  }
+
+  .storm {
+    animation: storm 9s ease-in-out infinite;
+  }
+
+  .pipe-water {
+    animation: fill-pipe 9s ease-in-out infinite;
+  }
+
+  .drips,
+  .spill-note {
+    animation: spill-on 9s linear infinite;
+  }
+
+  .drip {
+    animation: drip-fall 0.9s ease-in infinite;
+  }
+
+  .drip:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+
+  .drip:nth-child(3) {
+    animation-delay: -0.6s;
+  }
+
+  .mini-river {
+    animation:
+      river-tint 9s linear infinite,
+      waves 2.4s linear infinite;
+  }
+
+  .gauge-fill {
+    transition: height 1.6s cubic-bezier(0.3, 0.7, 0.4, 1);
+  }
+
+  .gauge-drop {
+    animation: gauge-drop 1.5s ease-in infinite;
+  }
+
+  .gauge-drop:nth-child(2) {
+    animation-delay: -0.5s;
+  }
+
+  .gauge-drop:nth-child(3) {
+    animation-delay: -1s;
+  }
+
+  .particle {
+    animation: drift-out 4.8s linear infinite;
+  }
+
+  .river.rising .particle {
+    animation-name: drift-in;
+  }
+
+  .water {
+    animation: tide-out 3s linear infinite;
+  }
+
+  .river.rising .water {
+    animation-name: tide-in;
+  }
+
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s ease-out,
+      transform 0.7s ease-out;
+  }
+
+  .js .chapter-text[data-reveal] {
+    transition-delay: 0.12s;
+  }
+
+  .js .figure[data-reveal] {
+    transition-delay: 0.24s;
+  }
+
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js [data-reveal]:not(.is-visible),
+  .js [data-reveal]:not(.is-visible) * {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-flow {
+    opacity: 0.5;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 0.55;
+  }
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+
+@keyframes march {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+@keyframes ping {
+  from {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+
+@keyframes fall {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  30% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes drip {
+  from {
+    opacity: 1;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes sway {
+  to {
+    transform: translateX(-6px);
+  }
+}
+
+@keyframes bob {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes storm {
+  0% {
+    opacity: 0;
+  }
+  4%,
+  55% {
+    opacity: 1;
+  }
+  62%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fill-pipe {
+  0%,
+  8% {
+    height: 28%;
+  }
+  50%,
+  70% {
+    height: 100%;
+  }
+  95%,
+  100% {
+    height: 28%;
+  }
+}
+
+@keyframes spill-on {
+  0%,
+  32% {
+    opacity: 0;
+  }
+  35%,
+  79% {
+    opacity: 1;
+  }
+  82%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes drip-fall {
+  from {
+    opacity: 1;
+    transform: translateY(-10px) rotate(-45deg);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(26px) rotate(-45deg);
+  }
+}
+
+@keyframes river-tint {
+  0%,
+  34% {
+    background-color: #d7eef3;
+  }
+  45%,
+  80% {
+    background-color: #efe3cf;
+  }
+  100% {
+    background-color: #d7eef3;
+  }
+}
+
+@keyframes waves {
+  to {
+    background-position: 40px 11px;
+  }
+}
+
+@keyframes gauge-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  30% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(36px) rotate(-45deg);
+  }
+}
+
+@keyframes drift-out {
+  from {
+    left: 50%;
+    opacity: 1;
+  }
+  to {
+    left: 97%;
+    opacity: 0.2;
+  }
+}
+
+@keyframes drift-in {
+  from {
+    left: 50%;
+    opacity: 1;
+  }
+  to {
+    left: 3%;
+    opacity: 0.2;
+  }
+}
+
+@keyframes tide-out {
+  to {
+    background-position:
+      40px 22px,
+      56px 58px;
+  }
+}
+
+@keyframes tide-in {
+  to {
+    background-position:
+      -40px 22px,
+      -56px 58px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .opening-top {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hero-map {
+    max-width: 440px;
+  }
+
+  .chapter-section {
+    padding: 64px 0;
+  }
+
+  .chapter {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .chapter-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .chapter-label .sketch {
+    width: 88px;
+  }
+
+  .chapter-word {
+    margin-top: 0;
+  }
+
+  .figure {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .right-now {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .right-now-title {
+    grid-column: 1 / -1;
+    padding-top: 0;
+  }
+
+  .sources {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .wrap {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .opening {
+    padding: 32px 0 40px;
+  }
+
+  .opening h1 {
+    font-size: 36px;
+  }
+
+  .lede {
+    font-size: 18px;
+  }
+
+  .right-now {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .reading-number {
+    font-size: 32px;
+  }
+
+  .chapter-text h2 {
+    font-size: 28px;
+  }
+
+  .how h2 {
+    font-size: 24px;
+  }
+
+  .card {
+    padding: 20px 16px;
+  }
+
+  .stat {
+    gap: 20px;
+  }
+
+  .stat-number {
+    font-size: 60px;
+  }
+
+  .spill-note {
+    left: calc(60% + 18px);
+  }
+}

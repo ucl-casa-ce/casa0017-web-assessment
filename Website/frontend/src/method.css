@@ -1,0 +1,161 @@
+:root {
+  --navy: #0f1f33;
+  --page-bg: #eef2f6;
+  --card-bg: #ffffff;
+  --border: #d9e0e7;
+  --text: #1c2b3a;
+  --muted: #5b6b7b;
+  --teal: #13808a;
+  --cyan: #5cc8dc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--page-bg);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--teal);
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 32px 48px;
+}
+
+.page-header {
+  margin-bottom: 32px;
+}
+
+h1 {
+  font-size: 44px;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.intro {
+  max-width: 640px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 26px;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 19px;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.section-intro {
+  color: var(--muted);
+  margin: -8px 0 16px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  line-height: 1.5;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: white;
+  font-weight: 700;
+}
+
+.api-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.provider {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+
+.used-for {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.api-card a {
+  margin-top: auto;
+  padding-top: 12px;
+  font-weight: 600;
+}
+
+.references {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.references li {
+  margin-bottom: 14px;
+}
+
+.references a {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+}

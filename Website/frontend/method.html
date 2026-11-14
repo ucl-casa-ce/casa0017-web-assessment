@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Method &amp; sources – Rain To Spill</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/topbar.css" />
+    <link rel="stylesheet" href="/src/method.css" />
+  </head>
+
+  <body>
+    <header class="topbar">
+      <a class="logo" href="/">
+        <svg class="logo-mark" viewBox="0 0 34 30" aria-hidden="true">
+          <path
+            class="cloud"
+            d="M9 14 A3.6 3.6 0 0 1 9.4 6.9 A5.8 5.8 0 0 1 20 4.6 A4.6 4.6 0 0 1 27.3 8.2 A3 3 0 0 1 27.2 14 Z"
+          />
+          <path
+            class="drop"
+            d="M18 16.5 C16 19.6, 15.6 21.6, 18 21.8 C20.4 21.6, 20 19.6, 18 16.5 Z"
+          />
+          <path class="wave" d="M3 26.5 q3.5 -3 7 0 t7 0 t7 0 t7 0" />
+        </svg>
+        <span class="logo-word">Rain <span class="logo-to">to</span> Spill</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main">
+        <a href="/">Overview</a>
+        <a href="/live.html">Live map</a>
+        <a href="/triggers.html">What sets them off</a>
+        <a href="/tide.html">Where it goes</a>
+        <a href="/method.html" class="active" aria-current="page">Method &amp; sources</a>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="page-header">
+        <h1>Method &amp; sources</h1>
+        <p class="intro">
+          How Rain To Spill collects its data, where every number comes from, and the research
+          behind the project.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>How it works</h2>
+
+        <ol class="steps">
+          <li class="card">
+            <span class="step-number">1</span>
+            <h3>Check the outfalls</h3>
+            <p>
+              Every 15 minutes our server asks Thames Water which storm overflows on the River Lea,
+              Bow Creek and the Thames are spilling sewage.
+            </p>
+          </li>
+
+          <li class="card">
+            <span class="step-number">2</span>
+            <h3>Measure rain, river and tide</h3>
+            <p>
+              At the same time it collects rainfall from the Walthamstow rain gauge, the river level
+              at Lea Bridge and the tide level at Silvertown from the Environment Agency.
+            </p>
+          </li>
+
+          <li class="card">
+            <span class="step-number">3</span>
+            <h3>Collect past spills</h3>
+            <p>
+              Past spills come from Thames Water's own monitoring records, which start in January
+              2024. Each one has the outfall it came from and the time it started and stopped.
+            </p>
+          </li>
+
+          <li class="card">
+            <span class="step-number">4</span>
+            <h3>Link spills to rain and tide</h3>
+            <p>
+              For each spill we add up the rain that fell at that outfall in the 24 hours before it
+              started, using Open-Meteo's weather history. We also work out the tide at that moment,
+              to see when the tide pushes sewage back up the river.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section">
+        <h2>Live data we use</h2>
+        <p class="section-intro">
+          These APIs (online services that send data to our server) keep the site up to date.
+        </p>
+
+        <div class="card-grid">
+          <div class="card api-card">
+            <p class="provider">Thames Water</p>
+            <h3>Open Data API: storm discharges</h3>
+            <p>
+              The list of storm overflow outfalls, where they are, and whether each one is spilling
+              right now.
+            </p>
+            <p class="used-for">Used for: outfalls, live spills</p>
+            <a href="https://data.thameswater.co.uk/">data.thameswater.co.uk</a>
+          </div>
+
+          <div class="card api-card">
+            <p class="provider">Environment Agency</p>
+            <h3>Real-time flood-monitoring API</h3>
+            <p>
+              Rainfall at Walthamstow, river level at Lea Bridge, and tide level at Silvertown,
+              measured every 15 minutes.
+            </p>
+            <p class="used-for">Used for: rain, river level, tide</p>
+            <a href="https://environment.data.gov.uk/flood-monitoring/doc/reference"
+              >environment.data.gov.uk/flood-monitoring</a
+            >
+          </div>
+
+          <div class="card api-card">
+            <p class="provider">Environment Agency</p>
+            <h3>Flood warnings</h3>
+            <p>Current flood alerts and warnings for Greater London.</p>
+            <p class="used-for">Used for: flood alerts</p>
+            <a href="https://environment.data.gov.uk/flood-monitoring/doc/reference"
+              >environment.data.gov.uk/flood-monitoring</a
+            >
+          </div>
+
+          <div class="card api-card">
+            <p class="provider">Open-Meteo</p>
+            <h3>Weather history and forecast APIs</h3>
+            <p>
+              Hourly rain at each outfall for past spills, plus the rain forecast and soil moisture,
+              which tells us how wet the ground already is.
+            </p>
+            <p class="used-for">Used for: rain before each spill, wet catchment</p>
+            <a href="https://open-meteo.com/">open-meteo.com</a>
+          </div>
+
+          <div class="card api-card">
+            <p class="provider">RainViewer</p>
+            <h3>Weather radar API</h3>
+            <p>The latest rain radar images, showing where it is raining right now.</p>
+            <p class="used-for">Used for: rain radar</p>
+            <a href="https://www.rainviewer.com/api.html">rainviewer.com</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Historical data</h2>
+
+        <div class="card-grid">
+          <div class="card api-card">
+            <p class="provider">Environment Agency</p>
+            <h3>Event Duration Monitoring: annual returns</h3>
+            <p>Yearly records of how often and how long every storm overflow in England spilled.</p>
+            <p class="used-for">Used for: past spills</p>
+            <a
+              href="https://www.data.gov.uk/dataset/event-duration-monitoring-storm-overflows-annual-returns"
+              >data.gov.uk</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- The Live map's forecast model (was live-method.html). Values in highlighted boxes are filled
+           in from Website/shared/river/config.js by src/pages/method-live.js. -->
+      <section class="section live-model" id="live-map">
+        <h2>How the Live map forecast works</h2>
+        <p class="section-intro">The map estimates where sewage released by storm overflows is likely to be in the River Thames now and over the next 7 days, and how certain that estimate is. The dropdowns below explain every step so you can check, reuse or challenge it. The numbers shown in <span class="live">highlighted boxes</span> are read directly from the map's settings file, so they always match what the map is using.</p>
+
+        <div class="card">
+          <details class="lm" id="summary">
+            <summary>In brief</summary>
+            <ol>
+              <li><b>Which overflows are spilling?</b> Thames Water's Event Duration Monitoring (EDM) feed says which storm overflows are discharging now and when each last started and stopped.</li>
+              <li><b>Which will spill?</b> Hourly rain forecasts for each overflow give a chance of a new spill over the next 7 days.</li>
+              <li><b>Where does it go?</b> Each spill is followed down the river as a series of small "parcels" moving at a speed derived from measured river flow, and — below Teddington — washing back and forth with the predicted tide.</li>
+              <li><b>How much is left?</b> Bacteria die off over time and the sewage spreads out along the river.</li>
+              <li><b>How certain is it?</b> The whole calculation is repeated <span class="live" data-c="uncertainty.members"></span> times with the uncertain inputs varied each time. The spread of the results gives the likely range and the chance of each level.</li>
+            </ol>
+          </details>
+          <details class="lm" id="traffic-light">
+            <summary>The traffic light</summary>
+            <p>The status for your spot is the headline of the map. It turns the detailed model results (see “Levels and units” and “Uncertainty and likelihood” below) into one of three lights, using the same rules on the map, the 7-day outlook, the share card and the WhatsApp updates.</p>
+            <p><b>What the risk refers to.</b> Every light is a <b>sewage risk</b>: how likely it is that sewage from storm overflows is in the water on your stretch. Sewage carries germs, so it is a health risk if you swallow river water or it gets into cuts. It is not a measured water-quality result, and it does not cover other hazards (cold water, currents, boat traffic, blue-green algae). The same meaning applies to <b>right now</b>, to <b>each hour of the next 24 hours</b>, and to <b>each of the next 7 days</b> — where a day shows its <i>highest</i> hourly sewage risk.</p>
+            <table>
+              <thead><tr><th>Light</th><th>Shown when…</th><th>What it means for you</th></tr></thead>
+              <tbody id="lightRows"></tbody>
+            </table>
+            <p><b>Your stretch.</b> The status covers your spot and the river up and downstream of it (± 1, 3, 5 or 10 km — you choose). A stretch takes the status of its <b>riskiest point</b>, because sewage at one end can drift to the other with the flow or tide.</p>
+            <p><b>Each day</b> in the 7-day row shows the worst hour of that day (UK time). Hover or focus a day for how many hours are affected and when it peaks.</p>
+            <p><b>"Certainty"</b> (High / Medium / Low) is the share of the <span class="live" data-c="uncertainty.members"></span> varied model runs that agree there <i>is</i> sewage (moderate or worse) when the light is amber or red, or that there <i>isn't</i> when it's green: <b>High</b> = at least <span id="confHigh"></span> of runs agree, <b>Medium</b> = at least <span id="confMed"></span>, otherwise <b>Low</b>. A red light with "Low" certainty means the model thinks it is possible but the runs disagree — worth checking again later.</p>
+            <p><b>Why 30%?</b> A one-in-three chance of sewage is treated as enough to warn you. This is a deliberately cautious choice (<code>risk.probability</code>), not a scientific threshold; it can be changed once the model has been checked against water samples.</p>
+            <p>Colours are never the only signal: each light also has a symbol (<b>✓</b> low, <b>!</b> moderate, <b>✕</b> high) and a written label, so the status is readable in greyscale, for colour-blind users and by screen readers.</p>
+          </details>
+          <details class="lm" id="data">
+            <summary>Data</summary>
+            <table>
+              <thead><tr><th>Input</th><th>Source</th><th>Updated</th><th>Used for</th></tr></thead>
+              <tbody>
+                <tr><td>Overflow status, last start/stop</td><td>Thames Water EDM open data API (the only live source: the Environment Agency publishes spill records after the event, not live)</td><td>~15 min</td><td>Observed spills</td></tr>
+                <tr><td>River flow (m³/s)</td><td>Environment Agency real-time flood-monitoring API</td><td>15 min</td><td>River speed</td></tr>
+                <tr><td>Predicted high waters, 7 days</td><td>ADMIRALTY EasyTide predictions (London Bridge), via the Rain To Spill backend</td><td>daily</td><td>Tide timing below Teddington</td></tr>
+                <tr><td>Observed tidal level (fallback)</td><td>Environment Agency flood-monitoring API</td><td>15 min</td><td>Tide timing if ADMIRALTY unavailable</td></tr>
+                <tr><td>Hourly rain forecast, <span class="live" data-c="forecast.forecastDays"></span> days</td><td>Open-Meteo</td><td>hourly</td><td>Forecast spills</td></tr>
+                <tr><td>Past spill records</td><td>Rain To Spill spill-event database. First choice: the Environment Agency's published Event Duration Monitoring records for Thames Water (start and stop times in GMT), imported by the project. Added to these: spills logged from Thames Water's live feed since the site started running</td><td>as imported, then ~15 min</td><td>How spill-prone each overflow is: the percentile rank of its total spill hours over the last year</td></tr>
+                <tr><td>River centreline</td><td>OS Open Rivers (WatercourseLink)</td><td>twice a year</td><td>Distances along the river</td></tr>
+              </tbody>
+            </table>
+            <p>Positions along the river are measured as <b>chainage</b>: kilometres downstream from the source at Thames Head along the OS Open Rivers centreline (about 341 km to the outer estuary; the tidal limit at Teddington is about 243 km).</p>
+          </details>
+          <details class="lm" id="method">
+            <summary>The model, step by step</summary>
+
+            <h3>Spills become parcels</h3>
+            <p>Every <span class="live" data-c="sim.stepMinutes"></span> minutes that an overflow is discharging, it releases one parcel carrying <i>w</i> = 0.25 spill-hours (one time-step). Forecast spills release one parcel per hour. Overflows on tributaries join the Thames at the nearest point on the centreline after a delay:</p>
+            <math display="block"><mrow><msub><mi>t</mi><mtext>delay</mtext></msub><mo>=</mo><mfrac><mrow><msub><mi>d</mi><mtext>off-river</mtext></msub><mo>×</mo><mi>s</mi></mrow><msub><mi>v</mi><mtext>trib</mtext></msub></mfrac></mrow></math>
+            <p>where <i>d</i> is the straight-line distance to the Thames, <i>s</i> = <span class="live" data-c="hydraulics.tributarySinuosity"></span> converts it to channel length, and <i>v</i><sub>trib</sub> = <span class="live" data-c="hydraulics.tributaryVelocity"></span> m/s. Overflows more than <span class="live" data-c="river.snapMaxKm"></span> km from the Thames are left out. A spill still running is assumed to continue for <span class="live" data-c="thamesWater.assumedOngoingHours"></span> more hours.</p>
+
+            <h3>Movement in the non-tidal river</h3>
+            <p>River speed at each point comes from the latest flow <i>Q</i> at the nearest Environment Agency gauge upstream, using a hydraulic-geometry power law:</p>
+            <math display="block"><mrow><mi>v</mi><mo>=</mo><mi>a</mi><mo>·</mo><msup><mi>Q</mi><mi>b</mi></msup><mo>,</mo><mspace width="1em"/><msub><mi>v</mi><mtext>min</mtext></msub><mo>≤</mo><mi>v</mi><mo>≤</mo><msub><mi>v</mi><mtext>max</mtext></msub></mrow></math>
+            <p>with <i>a</i> = <span class="live" data-c="hydraulics.a"></span>, <i>b</i> = <span class="live" data-c="hydraulics.b"></span> (60 m³/s → ~0.4 m/s; 300 m³/s → ~0.7 m/s). Each parcel moves <i>v</i>·Δ<i>t</i> downstream every step.</p>
+
+            <h3>Movement in the tidal river (below Teddington)</h3>
+            <p>Water in the tidal Thames moves upstream on the flood tide and downstream on the ebb. Each parcel has a slowly drifting mean position <i>m</i> plus a tidal displacement:</p>
+            <math display="block"><mrow><mi>c</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>m</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>−</mo><mfrac><mi>E</mi><mn>2</mn></mfrac><mi>cos</mi><mrow><mo>(</mo><mn>2</mn><mi>π</mi><mfrac><mrow><mi>t</mi><mo>−</mo><msub><mi>HW</mi><mtext>prev</mtext></msub></mrow><mrow><msub><mi>HW</mi><mtext>next</mtext></msub><mo>−</mo><msub><mi>HW</mi><mtext>prev</mtext></msub></mrow></mfrac><mo>)</mo></mrow><mo>,</mo><mspace width="1em"/><mfrac><mrow><mi>d</mi><mi>m</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><msub><mi>u</mi><mtext>net</mtext></msub></mrow></math>
+            <p><i>HW</i><sub>prev</sub> and <i>HW</i><sub>next</sub> are the predicted high waters either side of time <i>t</i>, so the tide follows the real 7-day ADMIRALTY predictions rather than a fixed period. <i>E</i> = <span class="live" data-c="tide.excursionKm"></span> km is the distance a parcel travels between low and high water; <i>u</i><sub>net</sub> = <span class="live" data-c="tide.netSeawardKmPerDay"></span> km/day is the slow seaward drift. Parcels cannot pass upstream of Teddington weir.</p>
+
+            <h3>Die-off</h3>
+            <p>Faecal bacteria die off in river water. A parcel's remaining load after <i>age</i> hours is</p>
+            <math display="block"><mrow><mi>L</mi><mo>=</mo><mi>w</mi><mo>·</mo><msup><mn>10</mn><mrow><mo>−</mo><mtext>age</mtext><mo>/</mo><msub><mi>T</mi><mn>90</mn></msub></mrow></msup></mrow></math>
+            <p><i>T</i><sub>90</sub> = <span class="live" data-c="decay.t90Hours"></span> h is the time for 90% to die. Laboratory river-water studies found 99% die-off of <i>E. coli</i> in about 2–3 days at 15–25 °C, which is a <i>T</i><sub>90</sub> of roughly 24–36 h; die-off is slower in colder water.</p>
+
+            <h3>Spreading</h3>
+            <p>Sewage spreads along the river as it travels. Each parcel is spread as a bell curve whose width grows with age:</p>
+            <math display="block"><mrow><msup><mi>σ</mi><mn>2</mn></msup><mo>=</mo><msubsup><mi>σ</mi><mn>0</mn><mn>2</mn></msubsup><mo>+</mo><mn>2</mn><mi>D</mi><mo>·</mo><mtext>age</mtext></mrow></math>
+            <p>with σ<sub>0</sub> = <span class="live" data-c="decay.minSigmaKm"></span> km and dispersion <i>D</i> = <span class="live" data-c="decay.dispersionKm2PerHour"></span> km²/h.</p>
+
+            <h3>The impact index</h3>
+            <p>The index at river position <i>x</i> and time <i>t</i> adds up every parcel's spread-out remaining load:</p>
+            <math display="block"><mrow><mi>I</mi><mo>(</mo><mi>x</mi><mo>,</mo><mi>t</mi><mo>)</mo><mo>=</mo><munder><mo>∑</mo><mtext>parcels</mtext></munder><mfrac><msub><mi>L</mi><mi>p</mi></msub><mrow><msqrt><mrow><mn>2</mn><mi>π</mi></mrow></msqrt><msub><mi>σ</mi><mi>p</mi></msub></mrow></mfrac><mi>exp</mi><mrow><mo>(</mo><mo>−</mo><mfrac><msup><mrow><mo>(</mo><mi>x</mi><mo>−</mo><msub><mi>c</mi><mi>p</mi></msub><mo>)</mo></mrow><mn>2</mn></msup><mrow><mn>2</mn><msubsup><mi>σ</mi><mi>p</mi><mn>2</mn></msubsup></mrow></mfrac><mo>)</mo></mrow></mrow></math>
+            <p>It is calculated every <span class="live" data-c="river.sampleSpacingKm"></span> km along the river and every <span class="live" data-c="sim.frameMinutes"></span> minutes, from <span class="live" data-c="sim.pastHours"></span> hours ago to <span class="live" data-c="sim.horizonHours"></span> hours ahead.</p>
+          </details>
+          <details class="lm" id="levels">
+            <summary>Levels and units</summary>
+            <p>The index unit is <b>spill-hours per kilometre (SH/km)</b>, after die-off. <b>1 SH/km</b> means the sewage from one hour of overflow discharge spread evenly along one kilometre of river, before any of it has died off.</p>
+            <table>
+              <thead><tr><th>Level</th><th>Index range (SH/km)</th><th>What it could look like</th></tr></thead>
+              <tbody id="levelRows"></tbody>
+            </table>
+            <p class="note"><b>This is a relative index, not a bacteria count.</b> EDM records <i>whether</i> an overflow is discharging, not how much, so every spill-hour counts the same and the levels cannot yet be converted to <i>E. coli</i> per 100 ml. For comparison, the legal standards for inland bathing waters are, for <i>E. coli</i>: Excellent ≤ 500 and Good ≤ 1,000 cfu/100 ml (95th percentile), Sufficient ≤ 900 cfu/100 ml (90th percentile). Calibrating these levels against water samples taken at known index values is the next step for this project; until then, treat "high" as "much more sewage than usual is likely here", not as a measured exceedance.</p>
+          </details>
+          <details class="lm" id="uncertainty">
+            <summary>Uncertainty and likelihood</summary>
+            <p>Many inputs are uncertain: how much each overflow actually releases, how fast the river flows, how quickly bacteria die, how much it will rain. Instead of one answer, the model runs an <b>ensemble</b>:</p>
+            <ul>
+              <li><b>Central estimate</b> — one run with every input at its typical value, and forecast spills counted in proportion to their chance (a 40% chance of a 1-hour spill counts as 0.4 spill-hours). This is the line on the chart and the default river colour.</li>
+              <li><b><span class="live" data-c="uncertainty.members"></span> further runs</b> — each input is drawn at random from the range below, and each forecast spill either happens or doesn't. Runs use a fixed random seed per hour so the map and the WhatsApp alerts agree.</li>
+            </ul>
+            <table>
+              <thead><tr><th>Uncertain input</th><th>How it varies between runs</th></tr></thead>
+              <tbody id="uncRows"></tbody>
+            </table>
+            <p>From those runs, at every point and hour the map reports:</p>
+            <ul>
+              <li><b>Likely range (10th–90th percentile)</b>: 80% of runs fall inside it. The shaded band on the chart.</li>
+              <li><b>Standard deviation (SD)</b>: the typical spread around the ensemble mean.</li>
+              <li><b>Chance of a level</b>: the share of runs at or above that level. "60% chance of MODERATE or worse" means 60% of runs reached 0.15 SH/km or more.</li>
+            </ul>
+            <p>Because several inputs are skewed (for example a spill can be much larger than typical, but not much smaller than zero), the ensemble mean is usually a little higher than the central estimate. The range widens further ahead because rain forecast errors grow by <span class="live" data-c="uncertainty.rainSigmaPerDay"></span> per day of lead time. With <span class="live" data-c="uncertainty.members"></span> runs, chances are reported in steps of about <span id="pStep"></span>; treat them as approximate.</p>
+          </details>
+          <details class="lm" id="next24">
+            <summary>The next 24 hours: rain and tide</summary>
+            <p>Under the traffic light, a strip shows the next <span class="live" data-c="context.hours"></span> hours for your stretch, hour by hour. It gives context; the light itself still comes from the model above.</p>
+            <ul>
+              <li><b>Sewage</b> — the traffic light for each hour (the worst point on your stretch).</li>
+              <li><b>Rain</b> — the hourly rain forecast (Open-Meteo), averaged over forecast points within <span class="live" data-c="context.rainRadiusKm"></span> km of your spot. Strength follows the American Meteorological Society definitions: <b>light</b> up to 2.5 mm an hour, <b>moderate</b> 2.6–7.6 mm, <b>heavy</b> over 7.6 mm. Less than <span class="live" data-c="context.rain.trace"></span> mm counts as dry. When more than <span class="live" data-c="context.wetDayMm"></span> mm is forecast in 24 hours, the summary says rain could set off overflows. Rain falling further upstream matters too; the model includes that, the strip does not.</li>
+              <li><b>Tide</b> — high (▲) and low (▼) water times. ADMIRALTY predicts them for London Bridge (Tower Pier); for other places they are shifted by the Port of London Authority's average time differences (for example, high water is about 31 minutes later at Putney Bridge and about an hour later at Richmond and Teddington), interpolated along the river. Downstream of Greenland Dock and upstream of Teddington the nearest listed difference is used, so times there are approximate. <b>Rising</b> means the water is flowing upstream, so sewage from overflows below you can be carried up to you; <b>falling</b> means it is flowing towards the sea. Above Teddington Lock the river is not tidal. The curve between the labels is smoothed: the real Thames rises faster than it falls, so use the labelled times.</li>
+            </ul>
+            <p>If ADMIRALTY data is unavailable, high waters are extrapolated every 12.42 hours from the last known one and low water is put halfway between; the summary then says "approx.".</p>
+          </details>
+          <details class="lm" id="forecast">
+            <summary>7-day spill forecast</summary>
+            <p>For each overflow and each forecast hour, the rain over the hours before (<i>R</i>) gives a chance of spilling:</p>
+            <math display="block"><mrow><mi>p</mi><mo>=</mo><mfrac><msub><mi>p</mi><mtext>site</mtext></msub><mrow><mn>1</mn><mo>+</mo><mi>exp</mi><mo>(</mo><mo>−</mo><mo>(</mo><mi>R</mi><mo>−</mo><msub><mi>R</mi><mn>50</mn></msub><mo>)</mo><mo>/</mo><mi>k</mi><mo>)</mo></mrow></mfrac></mrow></math>
+            <p><i>R</i><sub>50</sub> is the rain that gives half the site's maximum chance and <i>k</i> sets how sharply it rises. Below <span class="live" data-c="forecast.minRainMm"></span> mm the chance is zero. Where they come from depends on the overflow:</p>
+            <ul>
+              <li><b>Overflows with a rainfall threshold from this project's analysis</b> (the "What sets them off" page). For every overflow, that analysis records the rain that fell in the <span class="live" data-c="forecast.thresholds.windowHours"></span> hours before each of its past spills. <i>R</i> is the forecast rain over <span class="live" data-c="forecast.thresholds.windowHours"></span> hours. The chance starts at the <b>lowest</b> rain that has set the overflow off (there it is <span class="live" data-c="forecast.thresholds.onsetShare"></span> of the site's maximum) and reaches half the maximum at the <b>average</b> rain before its spills, so <i>R</i><sub>50</sub> = that average and <i>k</i> = (average − lowest) ÷ ln((1 − s) ÷ s), with s the starting share, kept between <span class="live" data-c="forecast.thresholds.minSlopeMm"></span> and <span class="live" data-c="forecast.thresholds.maxSlopeMm"></span> mm. An overflow needs at least <span class="live" data-c="forecast.thresholds.minSpills"></span> past spills with rain data to be treated this way.</li>
+              <li><b>All other overflows</b> use one general rule: <i>R</i> is the rain over <span class="live" data-c="forecast.accumHours"></span> hours, <i>R</i><sub>50</sub> = <span class="live" data-c="forecast.r50mm"></span> mm and <i>k</i> = <span class="live" data-c="forecast.slopeMm"></span> mm.</li>
+            </ul>
+            <p>Hover over an overflow on the map to see which rule it uses. Limits: the rain before past spills comes from the project's records (Open-Meteo's weather history, or the paired rain gauge for newly logged spills) while the forecast is a weather-model grid value; the average rain before spills is used as the half-way point by judgement, because the record holds only the days an overflow did spill, not the wet days it did not; and one unusual spill can set the lowest value.</p>
+            <p><i>p</i><sub>site</sub> starts at <span class="live" data-c="forecast.siteBase"></span>, is raised or lowered by the overflow's spill record in the EA annual returns when available, and is multiplied by <span class="live" data-c="forecast.recentBoost"></span> if it spilled in the last 48 hours (a wet catchment spills more easily). Overflow tooltips show the resulting chance of at least one spill in the next 24 hours and 7 days.</p>
+          </details>
+          <details class="lm" id="alerts">
+            <summary>WhatsApp alerts</summary>
+            <p>Every 15 minutes the Rain To Spill backend runs the same model and works out the traffic light for each subscriber's stretch, exactly as the map does. Subscribers choose one of three options:</p>
+            <ul>
+              <li><b>Every change, plus early warnings</b> — a message whenever the light changes, and a warning when a rise is forecast within the next 12 hours (with its chance and time).</li>
+              <li><b>Every change</b> — Low ⇄ Moderate ⇄ High, no early warnings.</li>
+              <li><b>High only</b> — when the stretch turns red or stops being red.</li>
+            </ul>
+            <p>Each message gives the new and previous status, the main overflow responsible, the 7-day row of lights, what to do, and a link that opens the map on that stretch with the full forecast. To avoid flip-flopping, an <b>improvement</b> must last 60 minutes before it is announced; a <b>rise</b> is sent straight away. At most one message per hour, except a rise to red. Between 22:00 and 07:00 only rises to red are sent; anything else waits until morning. Replying <b>STATUS</b> gives the current light, the next change, the week ahead and nearby public sightings.</p>
+          </details>
+          <details class="lm" id="sightings">
+            <summary>Public sightings</summary>
+            <p>River users can report what they see. Reports appear on the map for <span class="live" data-c="sightings.showDays"></span> days and are counted in WhatsApp STATUS replies. They are <b>unverified</b> and are <b>not</b> fed into the model; in future they could be used to check and calibrate it. No names, contact details or IP addresses are stored. To stop automated spam, the form uses Google reCAPTCHA v3, which runs invisibly and gives each submission a score; low-scoring submissions are rejected. reCAPTCHA is only loaded when you open the report form. For serious pollution, also report it to the Environment Agency (24-hour hotline <span class="live" data-c="sightings.officialPhone"></span>).</p>
+          </details>
+          <details class="lm" id="privacy">
+            <summary>Your data</summary>
+            <ul>
+              <li><b>Your location</b> is used in your browser to find your spot. It is only sent to the server if you submit a sighting (the sighting's position) or sign up for WhatsApp updates (your chosen spot).</li>
+              <li><b>Saved spots</b> are stored only in this browser (local storage). Clearing your browser data removes them; they are never uploaded.</li>
+              <li><b>Postcode search</b> sends the postcode you type to postcodes.io to find its location. When you type three or more letters in the search bar, the text is also sent to two free place-search services — postcodes.io (Ordnance Survey place names) and Photon by komoot (OpenStreetMap) — to find towns, neighbourhoods and clubs near the river. Nothing else about you is sent with it.</li>
+              <li><b>Embedded status cards</b> on club websites show the same model estimate and store nothing about visitors.</li>
+              <li><b>Sightings</b> store what, where, when and your optional note — nothing that identifies you.</li>
+              <li><b>WhatsApp updates</b> store your number, stretch and choices until you reply STOP, which deletes them. Unconfirmed sign-ups are deleted after 48 hours.</li>
+              <li><b>reCAPTCHA</b> (report form only) is provided by Google under its Privacy Policy and Terms of Service.</li>
+            </ul>
+          </details>
+          <details class="lm" id="limits">
+            <summary>Limitations</summary>
+            <ul>
+              <li>No measured volumes: EDM gives duration only. Strength is treated as unknown (see the uncertainty table).</li>
+              <li>EDM monitors can be wrong or offline; offline monitors are excluded unless configured otherwise.</li>
+              <li>Other sewage sources (treatment works final effluent, misconnections, boats, rural run-off) are not included.</li>
+              <li>The river is treated as one line: no mixing across its width, no side channels, no tributary flows except as a travel delay.</li>
+              <li>One tidal excursion for the whole tidal Thames; in reality it varies along the river and between spring and neap tides.</li>
+              <li>The uncertainty ranges are judgement-based and should be narrowed by comparing with water samples.</li>
+              <li>Clock changes: some past spill times in the project database were stored without allowing for the change between GMT and British Summer Time, so they can be an hour out. This barely affects how spill-prone an overflow looks (durations are unchanged) and shifts the 24-hour rain total before a spill by one hour. The Environment Agency's records, which are in GMT all year, are treated as the reference.</li>
+            </ul>
+          </details>
+          <details class="lm" id="parameters">
+            <summary>All parameter values</summary>
+            <p>Read live from <code>Website/shared/river/config.js</code>. Change them there and this table and the map update together.</p>
+            <div id="paramTables"></div>
+          </details>
+        </div>
+      </section>
+
+      <section class="section" id="references">
+        <h2>References</h2>
+
+        <div class="card">
+          <ul class="references">
+            <li>
+              American Meteorological Society (no date) ‘Rain’, <em>Glossary of Meteorology</em>. Available at: <a href="https://glossary.ametsoc.org/wiki/Rain">https://glossary.ametsoc.org/wiki/Rain</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              Apache Software Foundation (no date) <em>Apache ECharts</em>. Available at: <a href="https://echarts.apache.org/">https://echarts.apache.org/</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              <em>The Bathing Water Regulations 2013</em> (SI 2013/1675), Schedule 5. Available at: <a href="https://legislation.gov.uk/uksi/2013/1675/schedule/5/2016-06-20">https://legislation.gov.uk/uksi/2013/1675/schedule/5/2016-06-20</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              Defra Press Office (2023) ‘Government response to BBC reporting on storm overflows’,
+              <em>Defra in the media</em>, 5 September. Available at:
+              <a
+                href="https://deframedia.blog.gov.uk/2023/09/05/government-response-to-bbc-reporting-on-storm-overflows/"
+                >https://deframedia.blog.gov.uk/2023/09/05/government-response-to-bbc-reporting-on-storm-overflows/</a
+              >
+              (Accessed: 9 October 2026).
+            </li>
+            <li>
+              Dezeen (2025) ‘“Super sewer fully up and running” in London to protect River Thames’,
+              <em>Dezeen</em>, 20 February. Available at:
+              <a href="https://www.dezeen.com/2025/02/20/thames-tideway-tunnel-london-river-thames/"
+                >https://www.dezeen.com/2025/02/20/thames-tideway-tunnel-london-river-thames/</a
+              >
+              (Accessed: 10 October 2026).
+            </li>
+            <li>
+              Dick, L.K., Stelzer, E.A., Bertke, E.E., Fong, D.L. and Stoeckel, D.M. (2010) ‘Relative decay of <em>Bacteroidales</em> microbial source tracking markers and cultivated <em>Escherichia coli</em> in freshwater microcosms’, <em>Applied and Environmental Microbiology</em>, 76(10), pp. 3255–3262. doi: 10.1128/AEM.02636-09. Available at: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2869114">https://pmc.ncbi.nlm.nih.gov/articles/PMC2869114</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              <em>Environment Act 2021</em>, c. 30. Available at:
+              <a href="https://www.legislation.gov.uk/ukpga/2021/30"
+                >https://www.legislation.gov.uk/ukpga/2021/30</a
+              >
+              (Accessed: 9 October 2026).
+            </li>
+            <li>
+              Environment Agency (no date a) <em>Real-time flood-monitoring API: reference</em>.
+              Available at:
+              <a href="https://environment.data.gov.uk/flood-monitoring/doc/reference"
+                >https://environment.data.gov.uk/flood-monitoring/doc/reference</a
+              >
+              (Accessed: 10 October 2026).
+            </li>
+            <li>
+              Environment Agency (no date b) <em>Event Duration Monitoring – storm overflows – start/stop detailed data</em>. Available at: <a href="https://www.data.gov.uk/dataset/event-duration-monitoring-storm-overflow-start-stop-detailed-data">https://www.data.gov.uk/dataset/event-duration-monitoring-storm-overflow-start-stop-detailed-data</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              Environment Agency (2025)
+              <em>Environment Agency storm overflow spill data for 2024</em>. Press release, 27
+              March. Available at:
+              <a
+                href="https://www.gov.uk/government/news/environment-agency-storm-overflow-spill-data-for-2024"
+                >https://www.gov.uk/government/news/environment-agency-storm-overflow-spill-data-for-2024</a
+              >
+              (Accessed: 9 October 2026).
+            </li>
+            <li>
+              Environment Agency (2026a)
+              <em>Fewer and shorter storm overflow spills in 2025, new monitoring data shows</em>.
+              Press release, 26 March. Available at:
+              <a
+                href="https://www.gov.uk/government/news/fewer-and-shorter-storm-overflow-spills-in-2025-new-monitoring-data-shows"
+                >https://www.gov.uk/government/news/fewer-and-shorter-storm-overflow-spills-in-2025-new-monitoring-data-shows</a
+              >
+              (Accessed: 10 October 2026).
+            </li>
+            <li>
+              Environment Agency (2026b)
+              <em>Event Duration Monitoring – Storm Overflows – Annual Returns</em> [Data set].
+              Available at:
+              <a
+                href="https://www.data.gov.uk/dataset/event-duration-monitoring-storm-overflows-annual-returns"
+                >https://www.data.gov.uk/dataset/event-duration-monitoring-storm-overflows-annual-returns</a
+              >
+              (Accessed: 9 October 2026).
+            </li>
+            <li>
+              Flood Radar (no date) <em>Flood Radar</em>. Available at:
+              <a href="https://www.floodradar.co.uk/">https://www.floodradar.co.uk/</a>
+              (Accessed: 10 October 2026).
+            </li>
+            <li>
+              Google (no date) <em>reCAPTCHA v3</em>. Available at: <a href="https://developers.google.com/recaptcha/docs/v3">https://developers.google.com/recaptcha/docs/v3</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              Google Cloud (no date) <em>reCAPTCHA migration overview</em>. Available at: <a href="https://docs.cloud.google.com/recaptcha/docs/migration-overview">https://docs.cloud.google.com/recaptcha/docs/migration-overview</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              GOV.UK (no date) <em>Report water pollution</em>. Available at: <a href="https://www.gov.uk/report-water-pollution">https://www.gov.uk/report-water-pollution</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              Komoot (no date) <em>Photon: open source geocoder for OpenStreetMap data</em>. Available at: <a href="https://github.com/komoot/photon">https://github.com/komoot/photon</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              Lipp, A. and Dawe, J. (no date) <em>SewageMap</em>. Available at:
+              <a href="https://www.sewagemap.co.uk/">https://www.sewagemap.co.uk/</a>
+              (Accessed: 9 October 2026).
+            </li>
+            <li>
+              MapLibre (no date) <em>MapLibre GL JS documentation</em>. Available at: <a href="https://maplibre.org/maplibre-gl-js/docs/">https://maplibre.org/maplibre-gl-js/docs/</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              Open-Meteo (no date) <em>Weather forecast API documentation</em>. Available at: <a href="https://open-meteo.com/en/docs">https://open-meteo.com/en/docs</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              OpenFreeMap (no date) <em>OpenFreeMap</em>. Available at: <a href="https://openfreemap.org/">https://openfreemap.org/</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              OpenJS Foundation (no date) <em>deck.gl: @deck.gl/maplibre overview</em>. Available at: <a href="https://deck.gl/docs/api-reference/maplibre/overview">https://deck.gl/docs/api-reference/maplibre/overview</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              OpenStreetMap contributors (no date) <em>Copyright and licence</em>. Available at: <a href="https://www.openstreetmap.org/copyright">https://www.openstreetmap.org/copyright</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              Ordnance Survey (no date) <em>OS Open Rivers: overview</em>. Available at: <a href="https://docs.os.uk/os-downloads/networks/os-open-rivers/os-open-rivers-overview">https://docs.os.uk/os-downloads/networks/os-open-rivers/os-open-rivers-overview</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              Port of London Authority (no date) <em>Tide tables: average time differences</em>. Available at: <a href="https://www.pla.co.uk/Safety/Tide-Tables-Average-Time-Differences">https://www.pla.co.uk/Safety/Tide-Tables-Average-Time-Differences</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              Postcodes.io (no date) <em>API overview</em>. Available at: <a href="https://api.postcodes.io/docs/overview">https://api.postcodes.io/docs/overview</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              The Rivers Trust (no date) <em>Sewage map</em>. Available at:
+              <a href="https://theriverstrust.org/key-issues/sewage-in-rivers"
+                >https://theriverstrust.org/key-issues/sewage-in-rivers</a
+              >
+              (Accessed: 10 October 2026).
+            </li>
+            <li>
+              The Rivers Trust (2025) <em>2024 sewage spill data</em>, 28 March. Available at:
+              <a href="https://theriverstrust.org/about-us/news/2024-sewage-spill-cso-data"
+                >https://theriverstrust.org/about-us/news/2024-sewage-spill-cso-data</a
+              >
+              (Accessed: 9 October 2026).
+            </li>
+            <li>
+              Thames Water (no date a) <em>History of London’s sewer system</em>. Available at:
+              <a
+                href="https://www.thameswater.co.uk/about-us/community/days-out/riverside-spaces/history-of-london-sewer-system"
+                >https://www.thameswater.co.uk/about-us/community/days-out/riverside-spaces/history-of-london-sewer-system</a
+              >
+              (Accessed: 10 October 2026).
+            </li>
+            <li>
+              Thames Water (no date b)
+              <em>Open data: storm discharge (Event Duration Monitoring)</em> [Data set]. Available
+              at: <a href="https://data.thameswater.co.uk/">https://data.thameswater.co.uk/</a>
+              (Accessed: 9 October 2026).
+            </li>
+            <li>
+              Thames Water (no date c) <em>Thames Tideway Tunnel</em>. Available at:
+              <a href="https://www.thameswater.co.uk/about-us/projects/thames-tideway-tunnel"
+                >https://www.thameswater.co.uk/about-us/projects/thames-tideway-tunnel</a
+              >
+              (Accessed: 10 October 2026).
+            </li>
+            <li>
+              Thames Water (no date d) <em>Storm discharge and flow data</em>. Available at: <a href="https://www.thameswater.co.uk/about-us/performance/river-health/storm-discharge-and-flow-data">https://www.thameswater.co.uk/about-us/performance/river-health/storm-discharge-and-flow-data</a> (Accessed: 13 November 2026).
+            </li>
+            <li>
+              UCL (2025) <em>Sewage map of England</em>. UCL Mathematical &amp; Physical Sciences
+              news, July. Available at:
+              <a
+                href="https://www.ucl.ac.uk/mathematical-physical-sciences/news/2025/jul/sewage-map-england"
+                >https://www.ucl.ac.uk/mathematical-physical-sciences/news/2025/jul/sewage-map-england</a
+              >
+              (Accessed: 9 October 2026).
+            </li>
+            <li>
+              UK Hydrographic Office (no date) <em>ADMIRALTY EasyTide</em>. Available at: <a href="https://easytide.admiralty.co.uk">https://easytide.admiralty.co.uk</a> (Accessed: 13 November 2026).
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    <!-- fills the Live map section with the map's current settings -->
+    <script type="module" src="/src/pages/method-live.js"></script>
+  </body>
+</html>

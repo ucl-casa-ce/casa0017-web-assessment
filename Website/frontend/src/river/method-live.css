@@ -1,0 +1,31 @@
+/* "How the Live map forecast works" section of method.html (the team's Method & sources page).
+   Everything is scoped to .live-model so the rest of the page keeps the team's styles
+   (src/method.css), whose colour variables are reused here. */
+.live-model .section-intro { max-width: 760px; line-height: 1.5; }
+.live-model .card { padding: 8px 24px; }
+.live-model details.lm { border-bottom: 1px solid var(--border); }
+.live-model details.lm:last-child { border-bottom: none; }
+.live-model details.lm > summary { cursor: pointer; padding: 16px 0; font-size: 19px; font-weight: 700; color: var(--navy); }
+.live-model details.lm > summary:hover { color: var(--teal); }
+.live-model details.lm[open] { padding-bottom: 20px; }
+.live-model details.lm > :not(summary) { max-width: 860px; }
+.live-model p, .live-model ul, .live-model ol { margin: 0 0 12px; }
+.live-model li { margin: 4px 0; }
+.live-model h3 { font-size: 17px; margin: 20px 0 6px; }
+.live-model .live { background: #e8f4f6; border: 1px solid var(--border); border-radius: 4px; padding: 0 5px; font-variant-numeric: tabular-nums; font-weight: 600; }
+.live-model math[display='block'] { margin: 14px 0; font-size: 1.15em; overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
+.live-model table { border-collapse: collapse; width: 100%; font-size: 15px; margin: 10px 0 14px; }
+.live-model th, .live-model td { text-align: left; vertical-align: top; padding: 7px 8px; border-bottom: 1px solid var(--border); }
+.live-model th { font-weight: 600; color: var(--muted); }
+.live-model .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.live-model .lightchip { display: inline-block; padding: 3px 10px; border-radius: 999px; font-weight: 700; white-space: nowrap; }
+.live-model .note { background: #e8f4f6; border-left: 4px solid #e68a00; padding: 10px 14px; border-radius: 4px; }
+.live-model code { font-size: 14px; overflow-wrap: anywhere; }
+/* the per-group settings tables inside "All parameter values" */
+.live-model #paramTables details { border: 1px solid var(--border); border-radius: 8px; margin: 6px 0; padding: 4px 12px; }
+.live-model #paramTables summary { cursor: pointer; padding: 4px 0; }
+@media (max-width: 860px) {
+  .live-model .card { padding: 4px 16px; }
+  /* wide tables scroll inside themselves instead of pushing the page sideways */
+  .live-model table { display: block; overflow-x: auto; }
+}

@@ -1,0 +1,775 @@
+openapi: 3.0.3
+info:
+  title: Rain to Spill API
+  description: |
+    API for monitoring sewage overflow events, rainfall, and tidal data across Greater London's waterways.
+
+    This API combines data from:
+    - Thames Water Event Duration Monitoring (EDM)
+    - Environment Agency Flood Monitoring
+    - Open-Meteo weather forecasts
+    - RainViewer radar imagery
+  version: 1.0.0
+  contact:
+    name: CASA0017 Web Architecture Team
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+  - url: http://localhost:3000/api
+    description: API base path
+
+tags:
+  - name: Health
+    description: Server health checks
+  - name: Status
+    description: Aggregated current conditions
+  - name: Outfalls
+    description: Sewage outfall locations and discharge status
+  - name: Events
+    description: Historical spill events
+  - name: Tide
+    description: Tidal conditions and simulation
+  - name: Thresholds
+    description: Rainfall threshold analysis per outfall
+
+paths:
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health check
+      description: Returns server health status
+      operationId: getHealth
+      responses:
+        '200':
+          description: Server is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+  /api/status:
+    get:
+      tags:
+        - Status
+      summary: Get overall status
+      description: |
+        Aggregates current conditions from multiple data sources:
+        - Discharge status from Thames Water
+        - Rainfall from Environment Agency
+        - Tidal levels from Environment Agency
+        - Soil moisture from Open-Meteo
+        - Weather radar from RainViewer
+        - Flood alerts from Environment Agency
+      operationId: getOverallStatus
+      responses:
+        '200':
+          description: Aggregated status data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /api/outfalls:
+    get:
+      tags:
+        - Outfalls
+      summary: List all outfalls
+      description: Returns all monitored sewage outfalls, optionally filtered by river
+      operationId: listOutfalls
+      parameters:
+        - name: river
+          in: query
+          description: Filter by receiving watercourse (e.g., "Lea", "Thames", "Bow")
+          required: false
+          schema:
+            type: string
+            example: Lea
+      responses:
+        '200':
+          description: List of outfalls
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutfallsResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /api/outfalls/summary:
+    get:
+      tags:
+        - Outfalls
+      summary: Get London spill summary
+      description: |
+        Returns aggregated spill statistics for all London outfalls including:
+        - Total discharge time in last 30 days per outfall
+        - Currently discharging count
+        - Recently discharged count (48h)
+        - Outfalls ranked by discharge time
+      operationId: getLondonSpillSummary
+      responses:
+        '200':
+          description: London spill summary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LondonSpillSummaryResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /api/outfalls/{id}:
+    get:
+      tags:
+        - Outfalls
+      summary: Get single outfall
+      description: Returns details for a specific outfall by permit number
+      operationId: getSingleOutfall
+      parameters:
+        - name: id
+          in: path
+          description: Outfall permit number
+          required: true
+          schema:
+            type: string
+            example: TEMP.2466
+      responses:
+        '200':
+          description: Outfall details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleOutfallResponse'
+        '404':
+          description: Outfall not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /api/outfalls/{id}/history:
+    get:
+      tags:
+        - Outfalls
+      summary: Get outfall spill history
+      description: |
+        Returns historical spill events and duration statistics for a specific outfall:
+        - Paired Start/Stop events with calculated durations
+        - Summary statistics (last 48h, 7d, 30d, 6m, 12m, year-to-date, all-time)
+        - Ongoing event detection
+      operationId: getOutfallSpillHistory
+      parameters:
+        - name: id
+          in: path
+          description: Outfall permit number
+          required: true
+          schema:
+            type: string
+            example: TEMP.2466
+      responses:
+        '200':
+          description: Spill history and statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpillHistoryResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /api/events:
+    get:
+      tags:
+        - Events
+      summary: List spill events
+      description: Returns historical spill events with duration, rainfall, and tidal data
+      operationId: listEvents
+      parameters:
+        - name: outfall
+          in: query
+          description: Filter by outfall permit number
+          required: false
+          schema:
+            type: string
+            example: TEMP.2466
+        - name: limit
+          in: query
+          description: Maximum number of events to return
+          required: false
+          schema:
+            type: integer
+            default: 500
+            minimum: 1
+            maximum: 1000
+      responses:
+        '200':
+          description: List of spill events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /api/tide:
+    get:
+      tags:
+        - Tide
+      summary: Get tidal status
+      description: |
+        Returns current tidal conditions at Silvertown including:
+        - Current and previous water levels
+        - Tidal phase (FLOOD/EBB)
+        - Dispersion state (TIDALLY_TRAPPED/FLUSHED)
+        - Optional simulation with time offset
+      operationId: getTideStatus
+      parameters:
+        - name: offsetMinutes
+          in: query
+          description: Simulate tidal conditions at a past time offset (in minutes)
+          required: false
+          schema:
+            type: integer
+            example: 30
+      responses:
+        '200':
+          description: Tidal status data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TideResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /api/thresholds:
+    get:
+      tags:
+        - Thresholds
+      summary: List rainfall thresholds
+      description: |
+        Returns rainfall threshold analysis for each outfall showing:
+        - Minimum rainfall observed before a spill
+        - Average rainfall before spills
+        - Total spill count
+      operationId: listThresholds
+      parameters:
+        - name: maxRain
+          in: query
+          description: Filter to outfalls with minimum rainfall threshold below this value (mm)
+          required: false
+          schema:
+            type: number
+            format: float
+            example: 5.0
+      responses:
+        '200':
+          description: Threshold analysis data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThresholdsResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: Outfall not found
+
+    StatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        timestamp:
+          type: string
+          format: date-time
+        data:
+          type: object
+          properties:
+            discharges:
+              $ref: '#/components/schemas/DischargeData'
+            rainfall:
+              $ref: '#/components/schemas/RainfallData'
+            tide:
+              $ref: '#/components/schemas/TidalData'
+            soilAndWeather:
+              $ref: '#/components/schemas/SoilWeatherData'
+            weatherRadar:
+              $ref: '#/components/schemas/WeatherRadarData'
+            floodAlerts:
+              $ref: '#/components/schemas/FloodAlertsData'
+
+    DischargeData:
+      type: object
+      properties:
+        source:
+          type: string
+          enum: [live, cache_fallback]
+        fetchedAt:
+          type: string
+          format: date-time
+        count:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Outfall'
+
+    Outfall:
+      type: object
+      properties:
+        permitNumber:
+          type: string
+          example: TEMP.2466
+        locationName:
+          type: string
+          example: Bow Creek STW
+        receivingWaterCourse:
+          type: string
+          example: River Lea
+        easting:
+          type: number
+          example: 538500
+        northing:
+          type: number
+          example: 181200
+        lat:
+          type: number
+          nullable: true
+          example: 51.5234
+        lng:
+          type: number
+          nullable: true
+          example: -0.0123
+        alertStatus:
+          type: string
+          example: Not discharging
+        isDischarging:
+          type: boolean
+        alertPast48Hours:
+          type: boolean
+          description: Whether the outfall has discharged in the last 48 hours
+        mostRecentStart:
+          type: string
+          format: date-time
+          nullable: true
+        mostRecentStop:
+          type: string
+          format: date-time
+          nullable: true
+        pairedGaugeId:
+          type: string
+          nullable: true
+        gaugeDistanceKm:
+          type: number
+          nullable: true
+
+    RainfallData:
+      type: object
+      properties:
+        source:
+          type: string
+          enum: [live, cache_fallback]
+        gaugeId:
+          type: string
+          example: 5380TH
+        total24hMm:
+          type: number
+          example: 12.5
+        currentRateMmHr:
+          type: number
+          example: 2.4
+        count:
+          type: integer
+        readings:
+          type: array
+          items:
+            type: object
+            properties:
+              gaugeId:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+              mm:
+                type: number
+
+    TidalData:
+      type: object
+      properties:
+        source:
+          type: string
+          enum: [live, cache_fallback]
+        stationId:
+          type: string
+          example: "0001"
+        timestamp:
+          type: string
+          format: date-time
+        currentLevelMAOD:
+          type: number
+          description: Current water level in metres Above Ordnance Datum
+          example: 1.234
+        previousLevelMAOD:
+          type: number
+          example: 1.156
+        upstreamLeaBridgeStageM:
+          type: number
+          nullable: true
+        delta15Min:
+          type: number
+          description: Change in water level over 15 minutes
+          example: 0.078
+        hydraulicGradient:
+          type: number
+          nullable: true
+        tidalPhase:
+          type: string
+          enum: [FLOOD, EBB]
+        dispersionState:
+          type: string
+          enum: [TIDALLY_TRAPPED, FLUSHED]
+        series:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              levelMAOD:
+                type: number
+
+    SoilWeatherData:
+      type: object
+      properties:
+        source:
+          type: string
+          enum: [live, unavailable]
+        soilMoisture0to1cm:
+          type: number
+          nullable: true
+        precipitationMm:
+          type: number
+          nullable: true
+
+    WeatherRadarData:
+      type: object
+      properties:
+        source:
+          type: string
+          enum: [live, unavailable]
+        host:
+          type: string
+          example: https://tilecache.rainviewer.com
+        latestFramePath:
+          type: string
+          nullable: true
+        timestamp:
+          type: integer
+          nullable: true
+
+    FloodAlertsData:
+      type: object
+      properties:
+        source:
+          type: string
+          enum: [live, unavailable]
+        count:
+          type: integer
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              areaName:
+                type: string
+              description:
+                type: string
+              severity:
+                type: string
+              severityLevel:
+                type: integer
+              timeRaised:
+                type: string
+                format: date-time
+
+    OutfallsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        count:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Outfall'
+
+    SingleOutfallResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Outfall'
+
+    SpillEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+        permitNumber:
+          type: string
+        locationName:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        stopTime:
+          type: string
+          format: date-time
+          nullable: true
+        durationHours:
+          type: number
+          example: 4.5
+        rain24hMm:
+          type: number
+          nullable: true
+          example: 8.2
+        tidalPhaseAtStart:
+          type: string
+          enum: [FLOOD, EBB]
+          nullable: true
+        isTidallyTrapped:
+          type: boolean
+
+    EventsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        count:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpillEvent'
+
+    TideResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/TidalData'
+
+    ThresholdData:
+      type: object
+      properties:
+        permitNumber:
+          type: string
+        locationName:
+          type: string
+        receivingWaterCourse:
+          type: string
+        lat:
+          type: number
+          nullable: true
+        lng:
+          type: number
+          nullable: true
+        minRain24hMm:
+          type: number
+          description: Lowest 24h rainfall observed before a spill at this outfall
+          example: 2.4
+        avgRain24hMm:
+          type: number
+          description: Average 24h rainfall before spills
+          example: 8.7
+        spillCount:
+          type: integer
+          description: Total number of recorded spill events
+          example: 15
+
+    ThresholdsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        count:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ThresholdData'
+
+    DischargeSummary:
+      type: object
+      properties:
+        totalMinutes:
+          type: integer
+          description: Total discharge time in minutes
+          example: 245
+        totalHours:
+          type: number
+          description: Total discharge time in hours
+          example: 4.08
+        eventCount:
+          type: integer
+          description: Number of discharge events
+          example: 3
+
+    SpillHistoryEvent:
+      type: object
+      properties:
+        permitNumber:
+          type: string
+          example: TEMP.2466
+        locationName:
+          type: string
+          example: Bow Creek STW
+        type:
+          type: string
+          enum: [discharge, offline]
+        startTime:
+          type: string
+          format: date-time
+        stopTime:
+          type: string
+          format: date-time
+          nullable: true
+        durationMinutes:
+          type: integer
+          example: 145
+        ongoing:
+          type: boolean
+
+    SpillHistoryResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            source:
+              type: string
+              enum: [live, error]
+            fetchedAt:
+              type: string
+              format: date-time
+            permitNumber:
+              type: string
+            summary:
+              type: object
+              properties:
+                last48Hours:
+                  $ref: '#/components/schemas/DischargeSummary'
+                last7Days:
+                  $ref: '#/components/schemas/DischargeSummary'
+                last30Days:
+                  $ref: '#/components/schemas/DischargeSummary'
+                last6Months:
+                  $ref: '#/components/schemas/DischargeSummary'
+                last12Months:
+                  $ref: '#/components/schemas/DischargeSummary'
+                yearToDate:
+                  $ref: '#/components/schemas/DischargeSummary'
+                allTime:
+                  $ref: '#/components/schemas/DischargeSummary'
+            events:
+              type: array
+              items:
+                $ref: '#/components/schemas/SpillHistoryEvent'
+
+    OutfallSummary:
+      type: object
+      properties:
+        permitNumber:
+          type: string
+        locationName:
+          type: string
+        receivingWaterCourse:
+          type: string
+        lat:
+          type: number
+          nullable: true
+        lng:
+          type: number
+          nullable: true
+        isCurrentlyDischarging:
+          type: boolean
+        alertPast48Hours:
+          type: boolean
+        last30Days:
+          $ref: '#/components/schemas/DischargeSummary'
+
+    LondonSpillSummaryResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            source:
+              type: string
+              enum: [live, error]
+            fetchedAt:
+              type: string
+              format: date-time
+            period:
+              type: string
+              example: last30Days
+            totalOutfalls:
+              type: integer
+              example: 109
+            currentlyDischarging:
+              type: integer
+              example: 3
+            recentlyDischarged:
+              type: integer
+              description: Number discharging in last 48 hours
+              example: 12
+            totalDischargeMinutes:
+              type: integer
+              example: 45230
+            totalDischargeHours:
+              type: number
+              example: 753.83
+            outfalls:
+              type: array
+              items:
+                $ref: '#/components/schemas/OutfallSummary'
+
+  responses:
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

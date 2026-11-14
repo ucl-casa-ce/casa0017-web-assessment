@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What sets them off? – Rain To Spill</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.css"
+      integrity="sha384-uTttxo/aOKbdE5RlD/SPzSDoDmNvGlUYPjONi2MN/b7c9HPSvW07OIuyP7uL6jxK"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/src/topbar.css" />
+    <link rel="stylesheet" href="/src/triggers.css" />
+  </head>
+
+  <body>
+    <header class="topbar">
+      <a class="logo" href="/">
+        <svg class="logo-mark" viewBox="0 0 34 30" aria-hidden="true">
+          <path
+            class="cloud"
+            d="M9 14 A3.6 3.6 0 0 1 9.4 6.9 A5.8 5.8 0 0 1 20 4.6 A4.6 4.6 0 0 1 27.3 8.2 A3 3 0 0 1 27.2 14 Z"
+          />
+          <path
+            class="drop"
+            d="M18 16.5 C16 19.6, 15.6 21.6, 18 21.8 C20.4 21.6, 20 19.6, 18 16.5 Z"
+          />
+          <path class="wave" d="M3 26.5 q3.5 -3 7 0 t7 0 t7 0 t7 0" />
+        </svg>
+        <span class="logo-word">Rain <span class="logo-to">to</span> Spill</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main">
+        <a href="/">Overview</a>
+        <a href="/live.html">Live map</a>
+        <a href="/triggers.html" class="active" aria-current="page">What sets them off</a>
+        <a href="/tide.html">Where it goes</a>
+        <a href="/method.html">Method &amp; sources</a>
+      </nav>
+
+      <div class="topbar-right">
+        <span class="live-dot"></span>
+        <span id="last-updated">Live, updated --:--</span>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="page-header">
+        <div>
+          <h1>What sets them off?</h1>
+          <p class="intro">
+            The rain that fell in the 24 hours before each spill in London. Move the slider under
+            the chart to pick out spills and see which outfalls they came from.
+          </p>
+        </div>
+
+        <div class="filters">
+          <label
+            class="filter-box switch"
+            title="Only spills where at least 2 mm of rain had already fallen the day before"
+          >
+            <input type="checkbox" id="wet-only" />
+            <span class="switch-track"></span>
+            Wet catchment only
+          </label>
+
+          <select class="filter-box" id="river-select" aria-label="River">
+            <option value="all">All rivers</option>
+            <option value="lea">River Lea</option>
+            <option value="thames">Thames and others</option>
+          </select>
+
+          <select class="filter-box" id="outfall-select" aria-label="Outfall">
+            <option value="all">All London outfalls</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <div class="card-header">
+            <h2>Rain before each spill</h2>
+            <div class="legend">
+              <span class="dot-key selected"></span> In your selection
+              <span class="dot-key"></span> Other spills
+            </div>
+          </div>
+
+          <div class="chart">
+            <div class="y-axis">
+              <span>20+ h</span><span>15</span><span>10</span><span>5</span><span>0</span>
+            </div>
+
+            <div class="plot-area" id="scatter" role="img" aria-label="Scatter chart of spills">
+              <canvas class="scatter-canvas" id="scatter-canvas"></canvas>
+              <div class="selection-box" id="selection-box">
+                <div class="selection-label">
+                  <strong id="selection-title">-- spills after 4 mm of rain or less</strong>
+                  <span>Move the slider to widen the selection</span>
+                </div>
+              </div>
+
+              <p class="empty-message">Spill data will appear here</p>
+            </div>
+          </div>
+
+          <div class="slider-row">
+            <input
+              type="range"
+              id="rain-slider"
+              min="0"
+              max="30"
+              step="0.5"
+              value="4"
+              aria-label="Most rain before a spill, in mm"
+            />
+          </div>
+
+          <div class="x-axis">
+            <span>0</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span
+            ><span>30+ mm</span>
+          </div>
+          <p class="axis-title">Rain in the 24 hours before the spill started</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header stacked">
+            <h2>Where those spills came from</h2>
+            <span class="muted" id="map-count">-- of -- outfalls</span>
+          </div>
+          <div class="map" id="map"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>Outfalls that spill after the least rain</h2>
+            <button class="link-button" id="show-all">See all outfalls</button>
+          </div>
+          <table class="ranking">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Outfall</th>
+                <th>Area</th>
+                <th>Lowest rain before a spill</th>
+                <th>Spills</th>
+                <th>Status now</th>
+              </tr>
+            </thead>
+            <tbody id="ranking-body">
+              <tr>
+                <td colspan="6" class="empty-message">Outfall data will appear here</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card card-dark">
+          <div class="stat">
+            <div class="gauge"><div class="gauge-fill" id="gauge-fill"></div></div>
+            <div>
+              <p class="stat-label">Lowest rain before a spill</p>
+              <p class="stat-number is-empty" id="stat-number">-- mm</p>
+            </div>
+          </div>
+          <p class="stat-text" id="stat-text">
+            At --, --. Your selection holds -- spills from -- outfalls.
+          </p>
+          <div class="stat-buttons">
+            <a class="button-primary" href="/tide.html">See where it goes</a>
+            <button class="button-outline" id="clear-selection">Clear selection</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.js"
+      integrity="sha384-5+cfbwT0iiub6VsQAdn6yz16nr6sDiQoHx6tm4O8OVYXHYOxcffFmCJBL0dgdvGp"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="/src/pages/triggers.js"></script>
+  </body>
+</html>

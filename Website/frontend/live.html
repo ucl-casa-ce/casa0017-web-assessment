@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f6b8f" />
+    <title>Live ThameSafe Spill Map | Rain To Spill</title>
+    <meta name="description" content="Proactive, speedy and informative sewage risk assessments for Thames River users." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/topbar.css" />
+  </head>
+  <body class="live-page">
+    <header class="topbar">
+      <a class="logo" href="/">
+        <svg class="logo-mark" viewBox="0 0 34 30" aria-hidden="true">
+          <path
+            class="cloud"
+            d="M9 14 A3.6 3.6 0 0 1 9.4 6.9 A5.8 5.8 0 0 1 20 4.6 A4.6 4.6 0 0 1 27.3 8.2 A3 3 0 0 1 27.2 14 Z"
+          />
+          <path class="drop" d="M18 16.5 C16 19.6, 15.6 21.6, 18 21.8 C20.4 21.6, 20 19.6, 18 16.5 Z" />
+          <path class="wave" d="M3 26.5 q3.5 -3 7 0 t7 0 t7 0 t7 0" />
+        </svg>
+        <span class="logo-word">Rain <span class="logo-to">to</span> Spill</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main">
+        <a href="/">Overview</a>
+        <a href="/live.html" class="active" aria-current="page">Live map</a>
+        <a href="/triggers.html">What sets them off</a>
+        <a href="/tide.html">Where it goes</a>
+        <a href="/method.html">Method &amp; sources</a>
+      </nav>
+
+      <div class="topbar-right">
+        <span class="live-dot"></span>
+        <span id="last-updated">Live, updated --:--</span>
+      </div>
+    </header>
+
+    <!-- Everything below the team top bar: the map and its panels (positioned inside #stage) -->
+    <div id="stage">
+    <div id="map" aria-label="Map of the River Thames"></div>
+
+    <!-- ===================================== MAP CONTROLS: find your spot -->
+    <!-- Find your spot: one bar — search, then locate me / saved spots / save this spot -->
+    <div id="searchBox" class="map-search" role="search">
+      <div class="search-bar">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <label for="spotSearch" class="visually-hidden">Find a club, riverside place or postcode</label>
+        <input id="spotSearch" type="search" autocomplete="off" enterkeyhint="search"
+          placeholder="Club, place or postcode — e.g. Thames Rowing, Putney, TW9 1TN"
+          role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list" />
+        <div id="spotCtrls" class="bar-btns" role="group" aria-label="Your spots">
+          <button id="locateBtn" class="bar-btn" aria-label="Locate me" title="Locate me">◎</button>
+          <button id="savedBtn" class="bar-btn" aria-label="Saved spots" title="Saved spots" aria-expanded="false" aria-controls="savedMenu">☆</button>
+          <button id="saveSpot" class="bar-btn" aria-label="Save this spot" title="Save this spot">＋</button>
+        </div>
+      </div>
+      <ul id="suggest" role="listbox" aria-label="Suggestions" hidden></ul>
+      <div id="savedMenu" class="saved-menu" role="menu" hidden>
+        <p class="menu-title">Saved spots</p>
+        <ul id="favList"></ul>
+        <p id="favEmpty" class="small muted">No saved spots yet. Choose a spot, then press ＋.</p>
+        <div id="saveRow" class="save-row" hidden>
+          <label for="saveName" class="small">Name this spot</label>
+          <div class="row"><input id="saveName" type="text" maxlength="40" /><button id="saveConfirm">Save</button></div>
+        </div>
+      </div>
+    </div>
+
+    <button id="mapStatus" class="map-status" hidden aria-label="Show status for your spot"></button>
+
+    <details id="mapKey" class="map-key">
+      <summary>Key</summary>
+      <div class="key-group">
+        <p class="key-h">Sewage risk on the river</p>
+        <ul class="key-list">
+          <li><i class="key low">✓</i>Low risk</li>
+          <li><i class="key moderate">!</i>Moderate risk</li>
+          <li><i class="key high">✕</i>High risk</li>
+        </ul>
+      </div>
+      <div class="key-group">
+        <p class="key-h">Storm overflows</p>
+        <ul class="key-list">
+          <li><i class="dot dis"></i>Spilling now</li>
+          <li><i class="dot rec"></i>Spilled in last 48 h</li>
+          <li><i class="dot fc"></i>Spill forecast</li>
+          <li><i class="dot quiet"></i>Not spilling</li>
+          <li><i class="dot off"></i>Monitor offline</li>
+        </ul>
+      </div>
+      <div class="key-group">
+        <p class="key-h">Locations</p>
+        <ul class="key-list">
+          <li><i class="dot sig"></i>Public sighting</li>
+          <li><i class="dot fav"></i>Saved spot</li>
+          <li id="keyClub" hidden><i class="dot club"></i>River club</li>
+        </ul>
+      </div>
+    </details>
+
+    <div id="infoCard" class="info-card" role="dialog" aria-modal="false" aria-labelledby="infoTitle" hidden>
+      <button id="infoClose" class="icon-btn" aria-label="Close">✕</button>
+      <div id="infoBody"></div>
+    </div>
+
+    <!-- ===================================== PANEL (side panel / phone bottom sheet) -->
+    <button id="panelOpen" class="panel-open" aria-controls="panel" aria-label="Show panel" hidden>☰ <span>Your spot</span></button>
+
+    <aside id="panel" class="panel" data-snap="peek" aria-label="Live ThameSafe Spill Map">
+      <div id="sheetHandle" class="sheet-handle" role="button" tabindex="0" aria-label="Show more"><span></span></div>
+      <header class="panel-head">
+        <h1>Live ThameSafe Spill Map</h1>
+        <div class="head-btns">
+          <button id="aboutBtn" class="ghost small-btn" aria-haspopup="dialog">About</button>
+          <button id="panelClose" class="icon-btn panel-close" aria-label="Hide panel" title="Hide panel" aria-controls="panel">✕</button>
+        </div>
+      </header>
+
+      <nav class="tabs" role="tablist" aria-label="Sections">
+        <button role="tab" id="t-status" aria-controls="tab-status" aria-selected="true">Status</button>
+        <button role="tab" id="t-report" aria-controls="tab-report" aria-selected="false" tabindex="-1">Report</button>
+        <button role="tab" id="t-alerts" aria-controls="tab-alerts" aria-selected="false" tabindex="-1">Alerts</button>
+      </nav>
+
+      <div class="panel-body">
+        <!-- ------------------------------------------------ STATUS -->
+        <section id="tab-status" role="tabpanel" aria-labelledby="t-status">
+          <div id="emptyState" class="empty">
+            <p class="slogan">Proactive, speedy and informative sewage risk assessments for Thames River users.</p>
+            <p class="empty-title">Find your spot</p>
+            <p class="small">Search above the map, press <b>◎</b>, or tap the river.</p>
+          </div>
+
+          <div id="statusCard" hidden>
+            <h3 id="nowH" class="sec-h">Right now <span class="sec-sub">· Sewage risk</span></h3>
+            <div class="status-top">
+              <div class="light" aria-hidden="true"><span class="lamp high"></span><span class="lamp moderate"></span><span class="lamp low"></span></div>
+              <div class="status-text">
+                <p id="spotName" class="spot-name"></p>
+                <p id="statusLabel" class="status-label" aria-live="polite"></p>
+                <p id="statusSure" class="small"></p>
+              </div>
+            </div>
+            <p id="advice" class="advice"></p>
+            <p id="nextLine" class="next"></p>
+            <details id="meaningFold" class="fold">
+              <summary>What does this mean?</summary>
+              <p id="riskMeaning" class="risk-meaning"></p>
+              <p id="wherePoint" class="small where"></p>
+            </details>
+            <section id="day24" class="day24" aria-labelledby="dayH">
+              <h3 id="dayH" class="sec-h">Next 24 hours</h3>
+              <div id="strip" class="strip"></div>
+              <details id="dayFold" class="fold">
+                <summary>Sewage, rain and tide in words</summary>
+                <ul id="daySummary" class="day-sum"></ul>
+              </details>
+            </section>
+            <h3 id="weekH" class="sec-h">Next 7 days <span class="sec-sub">· Highest risk each day</span></h3>
+            <ol id="week" class="week" aria-labelledby="weekH"></ol>
+            <label class="row small stretch">How far up and downstream
+              <select id="radius">
+                <option value="1">± 1 km</option><option value="3" selected>± 3 km</option>
+                <option value="5">± 5 km</option><option value="10">± 10 km</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="time-block">
+            <div class="row"><h2 id="timeH">Map time</h2><span id="liveBadge" class="badge live">● LIVE</span></div>
+            <output id="timeLabel" class="time">–</output>
+            <input id="time" type="range" min="0" max="1" step="1" value="0" aria-labelledby="timeH" />
+            <div class="row small"><span>−24 h</span><button id="play" class="ghost">▶ Play</button><button id="nowBtn" class="ghost">Now (live)</button><span>+7 days</span></div>
+          </div>
+
+          <details id="shareBlock" class="fold" hidden>
+            <summary>Share, download or embed</summary>
+            <div class="share-row" role="group" aria-label="Share or download this outlook">
+              <button id="shareBtn" class="ghost">Share</button>
+              <button id="copyBtn" class="ghost">Copy link</button>
+              <button id="pngBtn" class="ghost">Image</button>
+              <button id="csvBtn" class="ghost">CSV</button>
+            </div>
+            <button id="embedBtn" class="ghost wide">Embed on your club's website</button>
+            <p id="shareMsg" class="small muted" aria-live="polite"></p>
+            <details id="details">
+              <summary class="small">Details and numbers</summary>
+              <p id="hereText" class="small"></p>
+              <div id="chart" role="img" aria-label="Impact over time with uncertainty band"></div>
+              <p class="small muted">Line: central estimate (SH/km). Band: 80% of model runs. Bars: chance of moderate or worse. <a href="method.html#traffic-light">How the status is decided</a></p>
+            </details>
+          </details>
+
+          <details class="small map-options fold">
+            <summary>Map options</summary>
+            <label>Colour river by
+              <select id="colourBy">
+                <option value="risk">Traffic light (recommended)</option>
+                <option value="central">Central estimate (SH/km)</option>
+                <option value="pMod">Chance of moderate or worse</option>
+                <option value="pHigh">Chance of high</option>
+                <option value="p90">Upper estimate (90th percentile)</option>
+              </select>
+            </label>
+            <div class="ramp" id="ramp" hidden></div>
+            <div class="row small" id="rampLabels" hidden></div>
+            <label><input type="checkbox" id="showForecast" checked /> include forecast spills</label>
+            <label><input type="checkbox" id="showSightings" checked /> show public sightings</label>
+            <label><input type="checkbox" id="showQuiet" /> show quiet overflows</label>
+            <button id="london" class="ghost">Zoom to tidal London</button>
+          </details>
+          <p id="status" class="status small">Loading live data…</p>
+        </section>
+
+        <!-- ------------------------------------------------ REPORT -->
+        <section id="tab-report" role="tabpanel" aria-labelledby="t-report" hidden>
+          <h2>Report a sighting</h2>
+          <p class="small">Seen sewage? Tell other river users. No personal details are stored.</p>
+          <p id="reportSpot" class="small where"></p>
+          <fieldset><legend class="small">What did you see?</legend><div id="sightTypes" class="checks small"></div></fieldset>
+          <fieldset><legend class="small">How bad?</legend><div id="sightSeverity" class="row small"></div></fieldset>
+          <label class="small">When <input id="sightTime" type="datetime-local" /></label>
+          <textarea id="sightNote" rows="2" maxlength="280" placeholder="Optional note (no names or contact details)" aria-label="Note"></textarea>
+          <button id="sightBtn">Submit sighting</button>
+          <p id="sightMsg" class="small" aria-live="polite"></p>
+          <details class="fold">
+            <summary>Serious pollution? Report it officially</summary>
+            <p class="small">Environment Agency, 24 hours: <a id="eaLink" target="_blank" rel="noopener">online</a> or <a id="eaPhone"></a>.</p>
+          </details>
+          <p id="captchaNote" class="small muted" hidden>Protected by reCAPTCHA: Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a> apply.</p>
+        </section>
+
+        <!-- ------------------------------------------------ ALERTS -->
+        <section id="tab-alerts" role="tabpanel" aria-labelledby="t-alerts" hidden>
+          <h2>WhatsApp updates</h2>
+          <p class="small">A message when your stretch's sewage risk changes.</p>
+          <p id="alertSpot" class="small where"></p>
+          <label class="small">Send updates for
+            <select id="alertLevel">
+              <option value="low" selected>Every change + early warnings</option>
+              <option value="moderate">Every change</option>
+              <option value="high">High risk only</option>
+            </select>
+          </label>
+          <label class="small">I'm usually <select id="activity"></select></label>
+          <input id="alertPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp number, e.g. +44 7700 900123" aria-label="WhatsApp number" />
+          <label class="small check"><input type="checkbox" id="alertConsent" /> <span>Store my number and stretch to send updates. Reply STOP any time to delete them.</span></label>
+          <details class="fold">
+            <summary>How sign-up works</summary>
+            <p class="small">You'll get a WhatsApp message; reply YES to confirm. Updates come when the status rises (straight away) or eases (after an hour), with a link to the 7-day forecast. Reply STATUS any time, or send a location pin to move your area.</p>
+          </details>
+          <button id="alertBtn">Sign up for updates</button>
+          <p id="alertMsg" class="small" aria-live="polite"></p>
+        </section>
+      </div>
+    </aside>
+
+    <!-- ===================================== EMBED CARD (only in ?embed=…) -->
+    <div id="embedCard" class="embed-card" hidden></div>
+    <div id="alert" role="alert" hidden></div>
+    </div>
+
+    <!-- ===================================== DIALOGS -->
+    <dialog id="about" aria-labelledby="aboutTitle">
+      <form method="dialog"><button class="icon-btn dlg-close" aria-label="Close">✕</button></form>
+      <h2 id="aboutTitle">About Live ThameSafe Spill Map</h2>
+      <p class="slogan">Proactive, speedy and informative sewage risk assessments for Thames River users.</p>
+      <p>The traffic light shows how likely sewage from storm overflows is on your stretch of the Thames, now and for the next 7 days. It is a model estimate with stated uncertainty, not a water test. EDM monitors indicate, not confirm, spills. Check official bathing-water advice before entering the water.</p>
+      <p><a href="method.html#live-map">How it works — method, units and every setting</a></p>
+      <p id="aboutData" class="small"></p>
+      <h3>Data and credits</h3>
+      <ul class="small credits">
+        <li>Storm overflow status: Thames Water EDM open data</li>
+        <li>This uses Environment Agency flood and river level data from the real-time data API (Beta)</li>
+        <li>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (CC BY 4.0)</li>
+        <li>Contains ADMIRALTY® Tidal Data © Crown copyright</li>
+        <li>© Environment Agency EDM returns</li>
+        <li>Contains OS data © Crown copyright and database right (OS Open Rivers)</li>
+        <li>Clubs and place search: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> (ODbL), searched with <a href="https://photon.komoot.io/" target="_blank" rel="noopener">Photon by komoot</a></li>
+        <li>Postcodes and place names: <a href="https://postcodes.io/" target="_blank" rel="noopener">postcodes.io</a>; contains OS data © Crown copyright and database right (OS Open Names, Code-Point Open)</li>
+        <li>Public sightings are unverified reports</li>
+      </ul>
+    </dialog>
+
+    <dialog id="embedDlg" aria-labelledby="embedTitle">
+      <form method="dialog"><button class="icon-btn dlg-close" aria-label="Close">✕</button></form>
+      <h2 id="embedTitle">Embed on your club's website</h2>
+      <p class="small">Paste this code into your website (most site builders have an "Embed" or "HTML" block). It always shows the live status for this stretch.</p>
+      <fieldset class="row small">
+        <legend>Style</legend>
+        <label><input type="radio" name="embedStyle" value="card" checked> Status card</label>
+        <label><input type="radio" name="embedStyle" value="map"> Card + map</label>
+      </fieldset>
+      <label class="small">Name shown <input id="embedName" type="text" maxlength="40" /></label>
+      <textarea id="embedCode" rows="5" readonly aria-label="Embed code"></textarea>
+      <div class="row"><button id="embedCopy">Copy code</button><a id="embedPreview" target="_blank" rel="noopener">Preview ↗</a></div>
+      <p id="embedMsg" class="small muted" aria-live="polite"></p>
+    </dialog>
+    <script type="module" src="/src/pages/live.js"></script>
+  </body>
+</html>

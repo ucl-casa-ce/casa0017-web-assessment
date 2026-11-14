@@ -1,0 +1,5 @@
+# Your own additions or corrections to the club list (merged by scripts/build-clubs.mjs).
+# category: rowing | paddle | sailing | cadets | swimming | other
+# lat/lon in WGS84 decimal degrees — take them from the club's slipway/boathouse (e.g. right-click in a web map).
+# Manual rows replace an OpenStreetMap entry with the same name. Lines starting with # are ignored.
+name,category,lat,lon,website

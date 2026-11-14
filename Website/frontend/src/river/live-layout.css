@@ -1,0 +1,21 @@
+/* Live map page: the team top bar (src/topbar.css) sits on top in the normal page flow and
+   #stage (the map and its panels) takes all the space that is left below it. Pure CSS: no
+   measuring in JavaScript, so the map can never slide under the bar, whatever the bar's height
+   (its links wrap onto extra rows on small screens). */
+html:has(> body.live-page) { height: 100%; }
+body.live-page {
+  margin: 0; overflow: hidden;
+  display: flex; flex-direction: column;
+  height: 100vh; height: 100dvh; /* dvh: the visible height on phones with a collapsing address bar */
+}
+body.live-page > .topbar { flex: 0 0 auto; }
+body.live-page > #stage { flex: 1 1 0; min-height: 0; position: relative; overflow: hidden; }
+/* club-website embeds show only the card / map */
+body.embed > .topbar { display: none; }
+
+/* Keep the team top bar looking exactly as it does on the other pages. Those pages give it
+   the browser's default line height, border-box sizing and this font through their own page
+   styles; the Live map pages have different text settings, which made the bar a few pixels
+   taller and its contents sit lower. */
+.topbar { line-height: normal; font-family: system-ui, 'Segoe UI', Roboto, sans-serif; }
+.topbar, .topbar *, .topbar *::before, .topbar *::after { box-sizing: border-box; }
